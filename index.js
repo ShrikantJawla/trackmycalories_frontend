@@ -1,3 +1,4 @@
+const path = require('path')
 require('dotenv').config();
 const express = require("express");
 const cors = require('cors');
@@ -20,6 +21,16 @@ app.use(express.json())
 app.use('/userprofile', userRoute)
 app.use('/user/auth', authRoute)
 app.use('/foodProducts', productsRoute)
+
+app.use(express.static(path.join(__dirname, "./client/build")));
+app.get("*", function (_, res) {
+    res.sendFile(
+        path.join(__dirname, "./client/build/index.html"),
+        function (err) {
+            res.status(500).send(err);
+        }
+    );
+});
 
 
 app.listen(port, async () => {
