@@ -9,6 +9,7 @@ const authRoute = require('./features/auth/auth.route')
 const productsRoute = require('./features/foodProducts/products.route')
 
 
+
 const app = express();
 
 
@@ -22,15 +23,15 @@ app.use('/userprofile', userRoute)
 app.use('/user/auth', authRoute)
 app.use('/foodProducts', productsRoute)
 
-app.use(express.static(path.join(__dirname, "./client/build")));
-app.get("*", function (_, res) {
-    res.sendFile(
-        path.join(__dirname, "./client/build/index.html"),
-        function (err) {
-            res.status(500).send(err);
-        }
-    );
-});
+// app.use(express.static(path.join(__dirname, "./client/build")));
+// app.get("*", function (_, res) {
+//     res.sendFile(
+//         path.join(__dirname, "./client/build/index.html"),
+//         function (err) {
+//             res.status(500).send(err);
+//         }
+//     );
+// });
 
 
 app.listen(port, async () => {

@@ -3,6 +3,8 @@ const UserProfiles = require('./user.model')
 const Users = require('../auth/auth.model')
 const Products = require('../foodProducts/products.model')
 
+
+
 const authMiddleWare = async (req, res, next) => {
     if (!req.headers.token) return res.send({ error: "token is required!" })
     const [email, userId, password] = req.headers.token.split('_#_');
@@ -25,6 +27,7 @@ const authMiddleWare = async (req, res, next) => {
 
 const app = express.Router();
 app.use(authMiddleWare)
+
 
 app.get('/getitems', async (req, res) => {
     const userId = req.userId;
