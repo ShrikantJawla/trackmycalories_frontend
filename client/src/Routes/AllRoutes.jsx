@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 import Dashboard from '../pages/Dashboard/Dashboard'
 import LoginPage from '../pages/LoginPage'
 import SearchPage from '../pages/SearchPage'
+import ShopHome from '../pages/Shop/ShopHome'
 import SignupPage from '../pages/SignupPage'
 import Tasks from '../pages/Tasks'
 import UserProfile from '../pages/UserProfile.jsx'
@@ -36,6 +37,7 @@ const routes = [
   },
   { path: '/login', element: <LoginPage /> },
   { path: '/signup', element: <SignupPage /> },
+  { path: '/tmc-shop', element: <ShopHome /> },
 ]
 const AllRoutes = () => {
   return (

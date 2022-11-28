@@ -11,6 +11,7 @@ import {
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { addNewTask } from '../../redux/tasks/tasks.actions'
+import { currentTime } from './timeRelatedData'
 
 let initialTask = {
   taskName: '',
@@ -145,9 +146,4 @@ const AddTask = ({ isVisible, toggleVisiblity }) => {
 
 export default AddTask
 
-function currentTime() {
-  let time = new Date()
-  return `${time.getFullYear()}-${
-    time.getMonth() + 1
-  }-${time.getDate()}T${time.getHours()}:${time.getMinutes()}`
-}
+

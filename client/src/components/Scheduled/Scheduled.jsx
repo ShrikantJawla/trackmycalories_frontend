@@ -1,11 +1,20 @@
 import { HStack, Text, VStack } from '@chakra-ui/react'
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import Task from './Task'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAllTasks } from '../../redux/tasks/tasks.actions'
+import ScheduledTask from './ScheduledTask'
 
 const Scheduled = () => {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getAllTasks())
+  }, [])
+
+  const { tasks } = useSelector((s) => s.tasks)
+  
   return (
-    <Wrapper w="full" >
+    <Wrapper w="full">
       <HStack w="full" justify="space-between">
         <Text fontSize="17px" fontWeight={600}>
           Scheduled
@@ -20,9 +29,10 @@ const Scheduled = () => {
         </Text>
       </HStack>
       <VStack className="tasks" w="full" overflow="scroll" h="full">
-        {new Array(4).fill(0).map((ele, ind) => (
-          <Task key={ind} />
-        ))}
+        {tasks &&
+          tasks
+            .filter((ele) => ele.status === 'inprogress')
+            .map((ele) => <ScheduledTask key={ele._id} {...ele} />)}
       </VStack>
     </Wrapper>
   )
