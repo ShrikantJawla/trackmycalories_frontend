@@ -6,10 +6,23 @@ import { BiLeftArrowAlt } from 'react-icons/bi'
 import { Link } from 'react-router-dom'
 import SideNav from './SideNav'
 import { useToggleVisiblity } from '../../hooks/useToggleVisiblity'
+
+const Links = [
+  { name: 'Protein', link: '' },
+  { name: 'BCAA', link: '' },
+  { name: 'Vitamins', link: '' },
+  { name: 'Gainers', link: '' },
+  { name: 'Omega-3', link: '' },
+  { name: 'Peanut-butter', link: '' },
+  { name: 'Plant-protein', link: '' },
+  { name: 'Recently-added', link: '' },
+]
+
 const Navbar = () => {
   const { isVisible, toggleVisiblity } = useToggleVisiblity()
   return (
     <VStack
+      zIndex={200}
       w="full"
       h={{ base: 'fit-content', lg: '110px' }}
       border="1px solid black"
@@ -23,13 +36,18 @@ const Navbar = () => {
       right={0}
       top={0}
     >
-      <HStack w="full" spacing="15px" px={{ base: '20px', lg: '14px' }}>
+      <HStack
+        w="full"
+        spacing={{ base: 'none', lg: '15px' }}
+        px={{ base: '20px', lg: '14px' }}
+        pr={{ base: '140px', md: '40px' }}
+      >
         <HStack
           flex={{ lg: '0.2' }}
           color="white"
           fontWeight="bold"
           w="full"
-          justifyContent="center"
+          justifyContent={{ lg: 'center' }}
         >
           <Text cursor="pointer" w={{ base: '240px', lg: 'fit-content' }}>
             Track-My-Calories
@@ -48,7 +66,12 @@ const Navbar = () => {
           <BsSearch color="white" />
         </HStack>
         <HStack flex={{ lg: '0.2' }}>
-          <Text cursor="pointer" fontWeight="bold" color="white">
+          <Text
+            cursor="pointer"
+            fontWeight="bold"
+            color="white"
+            fontSize={{ base: '13px', lg: '16px' }}
+          >
             LOGIN/REGISTER
           </Text>
           <Text fontWeight={100} color="grey">
@@ -62,8 +85,8 @@ const Navbar = () => {
             <Text cursor="pointer">CART</Text>
             <AiOutlineShoppingCart />
           </HStack>
-          <SideNav isVisible={isVisible} toggleVisiblity={toggleVisiblity} />
         </HStack>
+        <SideNav isVisible={isVisible} toggleVisiblity={toggleVisiblity} />
       </HStack>
       <HStack w="full" px="15px">
         <HStack spacing={0} flex="0.2">
@@ -79,30 +102,11 @@ const Navbar = () => {
           fontWeight="bold"
           display={{ base: 'none', lg: 'flex' }}
         >
-          <Link to="">
-            <Text>Protein</Text>
-          </Link>
-          <Link to="">
-            <Text>BCAA</Text>
-          </Link>
-          <Link to="">
-            <Text>Vitamins</Text>
-          </Link>
-          <Link to="">
-            <Text>Gainers</Text>
-          </Link>
-          <Link to="">
-            <Text>Omega-3</Text>
-          </Link>
-          <Link to="">
-            <Text>Peanut-butter</Text>
-          </Link>
-          <Link to="">
-            <Text>Recently-added</Text>
-          </Link>
-          <Link to="">
-            <Text>Plant-protein</Text>
-          </Link>
+          {Links.map((ele) => (
+            <Link to="">
+              <Text>{ele.name}</Text>
+            </Link>
+          ))}
         </HStack>
       </HStack>
     </VStack>
