@@ -4,14 +4,14 @@ import { GiHamburgerMenu } from 'react-icons/gi'
 import { Link } from 'react-router-dom'
 
 const Links = [
-  'Protein',
-  'BCAA',
-  'Vitamins',
-  'Gainers',
-  'Omega-3',
-  'Peanut-butter',
-  'Plant-protein',
-  'Recently-added',
+  { name: 'Protein', link: '' },
+  { name: 'BCAA', link: '' },
+  { name: 'Vitamins', link: '' },
+  { name: 'Gainers', link: '' },
+  { name: 'Omega-3', link: '' },
+  { name: 'Peanut-butter', link: '' },
+  { name: 'Plant-protein', link: '' },
+  { name: 'Recently-added', link: '' },
 ]
 
 const SideNav = ({ toggleVisiblity, isVisible }) => {
@@ -55,7 +55,7 @@ const SideNav = ({ toggleVisiblity, isVisible }) => {
                 _hover={{ bg: '#171e2b' }}
               >
                 <Text color="white" fontSize={20}>
-                  {ele}
+                  {ele.name}
                 </Text>
               </HStack>
             </Link>
