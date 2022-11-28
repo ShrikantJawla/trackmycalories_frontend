@@ -5,6 +5,7 @@ export const loading = () => ({ type: LOADING })
 export const success = () => ({ type: SUCCESS })
 export const error = (payload) => ({ type: ERROR, payload })
 
+
 export const getAllTasks = () => async (dispatch) => {
     dispatch(loading())
     try {
@@ -78,3 +79,5 @@ export const deleteTask = (id) => async (dispatch) => {
         dispatch(error())
     }
 }
+
+

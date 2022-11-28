@@ -20,6 +20,7 @@ import {
 import { useDispatch } from 'react-redux'
 import UpdateTaskForm from './UpdateTaskForm'
 import { useToggleVisiblity } from '../../hooks/useToggleVisiblity'
+import { currentTime } from './timeRelatedData'
 
 const Task = ({
   extraInfo,
@@ -35,23 +36,10 @@ const Task = ({
     isVisible: updateFormIsVisble,
     toggleVisiblity,
   } = useToggleVisiblity()
-  let time = new Date()
-  const [current, setCurrent] = useState(
-    new Date(
-      `${time.getFullYear()}-${
-        time.getMonth() + 1
-      }-${time.getDate()}T${time.getHours()}:${time.getMinutes()}`,
-    ),
-  )
+  const [current, setCurrent] = useState(new Date(currentTime()))
   let id = setInterval(() => {
     clearInterval(id)
-    setCurrent(
-      new Date(
-        `${time.getFullYear()}-${
-          time.getMonth() + 1
-        }-${time.getDate()}T${time.getHours()}:${time.getMinutes()}`,
-      ),
-    )
+    setCurrent(new Date(currentTime()))
   }, 1000 * 60)
   let taskSetTime = new Date(setTime)
   let target = new Date(targetTime)
@@ -60,11 +48,7 @@ const Task = ({
   const totalDiff = (target - taskSetTime) / (1000 * 60)
   let totalPer = (mins / totalDiff) * 100
 
-  useEffect(() => {
-    return () => {
-      clearInterval(id)
-    }
-  }, [])
+  useEffect(() => {}, [])
 
   return (
     <VStack
