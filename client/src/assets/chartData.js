@@ -13,8 +13,9 @@ export const dateWiseData = (allItems) => {
     for (let i = 1; i <= 31; i++) {
         let tot = 0
         for (let j = 0; j < allItems.length; j++) {
+            let [date] = allItems[j].time.split('/')
             if (
-                Number(allItems[j].time[0] + allItems[j].time[1]) === i
+                Number(date) === i
             ) {
                 tot += allItems[j].totalEnergy
             }

@@ -49,9 +49,11 @@ const Navbar = () => {
           w="full"
           justifyContent={{ lg: 'center' }}
         >
-          <Text cursor="pointer" w={{ base: '240px', lg: 'fit-content' }}>
-            Track-My-Calories
-          </Text>
+          <Link to="/tmc-shop">
+            <Text cursor="pointer" w={{ base: '240px', lg: 'fit-content' }}>
+              Track-My-Calories
+            </Text>
+          </Link>
         </HStack>
         <HStack
           flex={{ lg: '1' }}
@@ -77,21 +79,23 @@ const Navbar = () => {
           <Text fontWeight={100} color="grey">
             |
           </Text>
-          <HStack
-            fontWeight="bold"
-            color="white"
-            display={{ base: 'none', lg: 'flex' }}
-          >
-            <Text cursor="pointer">CART</Text>
-            <AiOutlineShoppingCart />
-          </HStack>
+          <Link to="/cart">
+            <HStack
+              fontWeight="bold"
+              color="white"
+              display={{ base: 'none', lg: 'flex' }}
+            >
+              <Text cursor="pointer">CART</Text>
+              <AiOutlineShoppingCart />
+            </HStack>
+          </Link>
         </HStack>
         <SideNav isVisible={isVisible} toggleVisiblity={toggleVisiblity} />
       </HStack>
       <HStack w="full" px="15px">
         <HStack spacing={0} flex="0.2">
           <BiLeftArrowAlt color="white" />
-          <Link to="">
+          <Link to="/">
             <Text color="white">Dashboard</Text>
           </Link>
         </HStack>
