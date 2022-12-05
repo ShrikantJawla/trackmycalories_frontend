@@ -1,7 +1,7 @@
 import { Circle, Text } from '@chakra-ui/react'
 import React from 'react'
 
-const DiscountCircle = () => {
+const DiscountCircle = ({ onsale }) => {
   return (
     <Circle
       position="absolute"
@@ -12,7 +12,7 @@ const DiscountCircle = () => {
       bg="red.500"
     >
       <Text fontWeight="bold" color="white" fontSize={17}>
-        -44%
+        {onsale && onsale}
       </Text>
     </Circle>
   )

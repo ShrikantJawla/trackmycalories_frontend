@@ -14,11 +14,19 @@ function CustomIcon(props) {
   )
 }
 
-export default function CustomCheckbox({ text }) {
+export default function CustomCheckbox({ text, length }) {
   return (
-    <Checkbox w='full' fontSize={19} icon={<CustomIcon />} colorScheme="cyan">
+    <Checkbox
+      w="full"
+      onChange={({ target }) => {
+        console.log(target.value)
+      }}
+      fontSize={19}
+      icon={<CustomIcon />}
+      colorScheme="cyan"
+    >
       {text}
-      {' ('}22{')'}
+      {`(${length && length})`}
     </Checkbox>
   )
 }

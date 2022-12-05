@@ -46,7 +46,7 @@ const routes = [
   { path: '/signup', element: <SignupPage /> },
   { path: '/tmc-shop', element: <ShopHome /> },
   { path: '/product/:productId', element: <DetailedProductMain /> },
-  { path: '/products', element: <CategoryDisplayMain /> },
+  { path: '/products/:category', element: <CategoryDisplayMain /> },
   {
     path: '/cart',
     element: (

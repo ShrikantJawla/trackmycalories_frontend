@@ -5,7 +5,17 @@ import CheckoutTotalAmountDetail from '../../components/shop/checkout/CheckoutTo
 import ChekoutLeftSide from '../../components/shop/checkout/ChekoutLeftSide'
 
 const Checkout = () => {
-  const [address, setAddress] = useState({})
+  const [address, setAddress] = useState({
+    mobile: '',
+    alternateMobile: '',
+    firstName: '',
+    lastName: '',
+    pinCode: '',
+    flatAdress: '',
+    area: '',
+    state: '',
+    town: '',
+  })
   const confirmDetails = (details) => {
     setAddress(details)
   }
@@ -13,9 +23,11 @@ const Checkout = () => {
   return (
     <VStack w={{ base: '100%', lg: '70%' }} margin="auto" p="10px" py="30px">
       <VStack w="full">
+        {/* Page Title */}
         <Text w="full" fontSize={21} fontStyle="italic" fontWeight={700}>
           TRACK-MY-CALORIES
         </Text>
+        {/* Bread-crumb */}
         <CustomBreadcrumb />
       </VStack>
       <Divider bg="gray" />
@@ -26,8 +38,10 @@ const Checkout = () => {
         spacing={3}
       >
         <VStack w={{ base: 'full', lg: '55%' }}>
+          {/* LeftSide */}
           <ChekoutLeftSide confirmDetails={confirmDetails} />
         </VStack>
+        {/* Right-side */}
         <VStack w={{ base: 'full', lg: '45%' }} boxShadow="var(--boxShadow)">
           <CheckoutTotalAmountDetail address={address} />
         </VStack>

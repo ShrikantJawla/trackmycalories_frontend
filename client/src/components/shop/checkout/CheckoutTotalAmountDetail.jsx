@@ -9,38 +9,65 @@ import {
   useToast,
   VStack,
 } from '@chakra-ui/react'
-import React from 'react'
+import React, { useState } from 'react'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  addItemInPuchaseList,
+  getAllCartItems,
+} from '../../../redux/cart/cart.actions'
 
 const CheckoutTotalAmountDetail = ({ address }) => {
+  const { allCartItems } = useSelector((state) => state.cart)
+  const [modeOfPayment, setModeOfPayment] = useState('cash')
+  const dispatch = useDispatch()
   const toast = useToast()
-  const customToast = (title, description) =>
+  const customToast = (title, description, status) =>
     toast({
       position: 'top',
       title,
       description,
-      status: 'warning',
+      status: status || 'warning',
       duration: 4000,
       isClosable: true,
     })
+
+  useEffect(() => {
+    dispatch(getAllCartItems())
+  }, [])
+
   const handlePayment = () => {
-    if (address.pinCode.length >= 6) {
+    if (
+      address.mobile === '' ||
+      address.firstName === '' ||
+      address.pinCode === '' ||
+      address.flatAdress === '' ||
+      address.area === '' ||
+      address.state === '' ||
+      address.town === ''
+    ) {
+      return customToast(
+        'Missing Input error!',
+        'Fill all the required fields',
+        'error',
+      )
+    } else if (address.pinCode.length > 6) {
       return customToast(
         'Pin code error',
         'Pin code can not be greater than 6 characters',
       )
-    }
-    if (address.mobile.length > 10) {
+    } else if (address.mobile.length > 10) {
+      return customToast(
+        'Alternate mobile error',
+        'Alternate mobile can not be less than 10 characters',
+      )
+    } else if (address.alternateMobile.length > 10) {
       return customToast(
         'Alternate mobile error',
         'Alternate mobile can not be less than 10 characters',
       )
     }
-    if (address.alternateMobile.length > 10) {
-      return customToast(
-        'Alternate mobile error',
-        'Alternate mobile can not be less than 10 characters',
-      )
-    }
+    dispatch(addItemInPuchaseList({ modeOfPayment }))
   }
 
   return (
@@ -58,31 +85,31 @@ const CheckoutTotalAmountDetail = ({ address }) => {
       </HStack>
       <Divider />
       <VStack w="full">
-        {new Array(3).fill(0).map((ele) => (
-          <VStack w="full">
-            <HStack w="full">
-              <Text w="84%" fontSize={14}>
-                Optimum Nutrition (ON) Gold Standard 100 Whey Protein Powder - 2
-                lbs, Delicious Strawberry{' '}
-                <Box as="span" fontWeight={600}>
-                  × 1
-                </Box>
-              </Text>
-              <Text w="25%" fontSize={17} fontWeight="700">
-                Rs.1,559
-              </Text>
-            </HStack>
-            <Divider />
-          </VStack>
-        ))}
+        {allCartItems &&
+          allCartItems.map((ele) => (
+            <VStack w="full">
+              <HStack w="full">
+                <Text w="84%" fontSize={14}>
+                  {ele.product.name}{' '}
+                  <Box as="span" fontWeight={600}>
+                    × {ele.quantity}
+                  </Box>
+                </Text>
+                <Text w="25%" fontSize={17} fontWeight="700">
+                  ₹{ele.product['woocommerce-Price-amount 2']}
+                </Text>
+              </HStack>
+              <Divider />
+            </VStack>
+          ))}
       </VStack>
       <VStack w="full" justify="space-between">
         <HStack w="full">
           <Text fontSize={18} fontWeight={600}>
             Subtotal
           </Text>
-          <Text fontSize={14} fontWeight="normal">
-            Rs.6,238
+          <Text fontSize={14} fontWeight={400}>
+            ₹{getSubTotal(allCartItems)}
           </Text>
         </HStack>
         <Divider />
@@ -104,7 +131,7 @@ const CheckoutTotalAmountDetail = ({ address }) => {
             Total
           </Text>
           <Text fontSize={14} fontWeight="normal" color="brown">
-            6,675
+            ₹{getSubTotal(allCartItems)}
           </Text>
         </HStack>
         <Divider />
@@ -113,17 +140,14 @@ const CheckoutTotalAmountDetail = ({ address }) => {
         <RadioGroup
           display="flex"
           flexDirection="column"
-          onChange={() => {}}
-          value={'cash-on-delivery'}
+          onChange={(value) => setModeOfPayment(value)}
+          value={modeOfPayment}
         >
-          <Radio colorScheme="red" value="cash-on-delivery">
+          <Radio colorScheme="red" value="cash">
             Cash on delivery
           </Radio>
           <Radio colorScheme="red" value="card">
             Pay by Card
-          </Radio>
-          <Radio colorScheme="red" value="online">
-            Pay online
           </Radio>
         </RadioGroup>
       </VStack>
@@ -140,3 +164,13 @@ const CheckoutTotalAmountDetail = ({ address }) => {
 }
 
 export default CheckoutTotalAmountDetail
+
+function getSubTotal(allCartItems) {
+  let total = 0
+  allCartItems &&
+    allCartItems.forEach((ele) => {
+      let price = +ele.product['woocommerce-Price-amount 2'].replace(',', '')
+      total += price
+    })
+  return total
+}

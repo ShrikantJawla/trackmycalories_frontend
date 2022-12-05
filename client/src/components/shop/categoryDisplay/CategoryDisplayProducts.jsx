@@ -3,7 +3,7 @@ import React from 'react'
 import Product from '../ProductsCrousel/Product'
 import Pagination from './Pagination'
 
-const CategoryDisplayProducts = () => {
+const CategoryDisplayProducts = ({ page, products, changePage, length }) => {
   return (
     <>
       <Grid
@@ -14,13 +14,20 @@ const CategoryDisplayProducts = () => {
           lg: 'repeat(4,1fr)',
         }}
       >
-        {new Array(12).fill(' ').map((ele) => (
-          <GridItem>
-            <Product />
-          </GridItem>
-        ))}
+        {products &&
+          products.map((ele) => (
+            <GridItem
+              key={
+                ele._id +
+                `${Date.now().toString}+${Math.random()}` +
+                Math.random()
+              }
+            >
+              {<Product product={ele} />}
+            </GridItem>
+          ))}
       </Grid>
-      <Pagination />
+      <Pagination pageNumber={page} changePage={changePage} length={length} />
     </>
   )
 }

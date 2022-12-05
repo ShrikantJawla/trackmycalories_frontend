@@ -2,42 +2,62 @@ import { Box, Icon, Image, Text, VStack } from '@chakra-ui/react'
 import { AiOutlineStar, AiFillStar } from 'react-icons/ai'
 import React from 'react'
 import DiscountCircle from './DiscountCircle'
+import { Link } from 'react-router-dom'
 
-const Product = () => {
+const Product = ({ product }) => {
+  const { _id, onsale, name } = product
   return (
-    <VStack bg="white" p="14px" position="relative" cursor="pointer">
-      <Box h="80%">
-        <Image
-          src="https://cdn.nutrabay.com/wp-content/uploads/2022/08/NB-NUT-1065-01-01-1-247x247.jpg"
-          alt="img"
-        />
-      </Box>
-      <VStack w="90%">
-        <Text w="full" textAlign="center" color="blue" fontSize="15">
-          Nutrabay Gold 100% Whey Protein Concentrate
-        </Text>
-        <Box display="flex" mt="2" alignItems="center">
-          {Array(5)
-            .fill('')
-            .map((_, i) => (
-              <Icon as={AiFillStar} key={i} color={'teal.500'} />
-            ))}
-          <Box as="span" ml="2" color="gray.600" fontSize="sm" fontWeight={700}>
-            {'(' + 20 + ')'}
-          </Box>
+    <Link to={`/product/${_id}`} style={{ width: '25%' }}>
+      <VStack bg="white" p="14px" position="relative" cursor="pointer" w="full">
+        <Box h="80%">
+          <Image
+            h="160px"
+            w="200px"
+            src={product && product['attachment-woocommerce_thumbnail src']}
+            alt={name && name}
+          />
         </Box>
-        <Box as="p">
-          From:{' '}
-          <Box as="span" textDecoration="line-through" color="gray">
-            1999{' '}
+        <VStack w="90%">
+          <Text
+            w="full"
+            textAlign="center"
+            color="blue"
+            fontSize="15"
+            noOfLines={2}
+          >
+            {name && name}
+          </Text>
+          <Box display="flex" mt="2" alignItems="center">
+            {Array(5)
+              .fill('')
+              .map((_, i) => (
+                <Icon as={AiFillStar} key={i} color={'teal.500'} />
+              ))}
+            <Box
+              as="span"
+              ml="2"
+              color="gray.600"
+              fontSize="sm"
+              fontWeight={700}
+            >
+              {product && product['widget-lite-count'] === ''
+                ? '(0)'
+                : product['widget-lite-count']}
+            </Box>
           </Box>
-          <Box as="span" fontWeight="bold">
-            1199
+          <Box as="p">
+            From:{' '}
+            <Box as="span" textDecoration="line-through" color="gray">
+              {product && product['woocommerce-Price-amount']}{' '}
+            </Box>
+            <Box as="span" fontWeight="bold">
+              {product && product['woocommerce-Price-amount 2']}
+            </Box>
           </Box>
-        </Box>
+        </VStack>
+        <DiscountCircle onsale={onsale} />
       </VStack>
-      <DiscountCircle />
-    </VStack>
+    </Link>
   )
 }
 

@@ -1,25 +1,32 @@
 import { FormControl, HStack, Input, Text, VStack } from '@chakra-ui/react'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BsSearch } from 'react-icons/bs'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { BiLeftArrowAlt } from 'react-icons/bi'
 import { Link } from 'react-router-dom'
 import SideNav from './SideNav'
 import { useToggleVisiblity } from '../../hooks/useToggleVisiblity'
+import { useDispatch, useSelector } from 'react-redux'
+import { getUser } from '../../redux/auth/auth.actions'
 
 const Links = [
-  { name: 'Protein', link: '' },
-  { name: 'BCAA', link: '' },
-  { name: 'Vitamins', link: '' },
-  { name: 'Gainers', link: '' },
-  { name: 'Omega-3', link: '' },
-  { name: 'Peanut-butter', link: '' },
-  { name: 'Plant-protein', link: '' },
-  { name: 'Recently-added', link: '' },
+  { name: 'Protein', link: 'protein' },
+  { name: 'BCAA', link: 'bcaa' },
+  { name: 'Vitamins', link: 'vitamins' },
+  { name: 'Gainers', link: 'massgainer' },
+  { name: 'Omega-3', link: 'omega3' },
+  { name: 'Peanut-butter', link: 'peanutButter' },
+  { name: 'Plant-protein', link: 'plantprotein' },
+  { name: 'Recently-added', link: 'recentlyadded' },
 ]
 
 const Navbar = () => {
+  const dispatch = useDispatch()
   const { isVisible, toggleVisiblity } = useToggleVisiblity()
+  const { isAuth, userInfo } = useSelector((state) => state.auth)
+  useEffect(() => {
+    dispatch(getUser())
+  }, [])
   return (
     <VStack
       zIndex={200}
@@ -74,7 +81,7 @@ const Navbar = () => {
             color="white"
             fontSize={{ base: '13px', lg: '16px' }}
           >
-            LOGIN/REGISTER
+            {isAuth ? `Hi ${userInfo?.firstName}` : 'LOGIN/REGISTER'}
           </Text>
           <Text fontWeight={100} color="grey">
             |
@@ -106,8 +113,11 @@ const Navbar = () => {
           fontWeight="bold"
           display={{ base: 'none', lg: 'flex' }}
         >
-          {Links.map((ele) => (
-            <Link to="">
+          {Links.map((ele, ind) => (
+            <Link
+              to={`/products/${ele.link}`}
+              key={`${ind}+${Date.now().toString()}`}
+            >
               <Text>{ele.name}</Text>
             </Link>
           ))}
