@@ -3,8 +3,10 @@ import React, { useState } from 'react'
 import CustomBreadcrumb from '../../components/shop/Breadcrumb'
 import CheckoutTotalAmountDetail from '../../components/shop/checkout/CheckoutTotalAmountDetail'
 import ChekoutLeftSide from '../../components/shop/checkout/ChekoutLeftSide'
+import PurchaseSuccessfulModel from '../../components/shop/checkout/PurchaseSuccessfulModel'
 
 const Checkout = () => {
+  const [oldIsOpen, setOldIsOpen] = useState(false)
   const [address, setAddress] = useState({
     mobile: '',
     alternateMobile: '',
@@ -18,6 +20,9 @@ const Checkout = () => {
   })
   const confirmDetails = (details) => {
     setAddress(details)
+  }
+  const toggleOldIsopen = () => {
+    setOldIsOpen((prev) => (prev = !prev))
   }
 
   return (
@@ -43,9 +48,16 @@ const Checkout = () => {
         </VStack>
         {/* Right-side */}
         <VStack w={{ base: 'full', lg: '45%' }} boxShadow="var(--boxShadow)">
-          <CheckoutTotalAmountDetail address={address} />
+          <CheckoutTotalAmountDetail
+            toggleOldIsopen={toggleOldIsopen}
+            address={address}
+          />
         </VStack>
       </Stack>
+      <PurchaseSuccessfulModel
+        oldIsOpen={oldIsOpen}
+        toggleOldIsopen={toggleOldIsopen}
+      />
     </VStack>
   )
 }
