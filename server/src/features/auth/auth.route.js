@@ -3,7 +3,6 @@ const Users = require('./auth.model')
 const path = require('path');
 const fs = require('fs');
 const multer = require('multer');
-const jwt = require('jsonwebtoken')
 
 
 const storage = multer.diskStorage({
@@ -108,17 +107,21 @@ app.post("/login", async (req, res) => {
     try {
         let user = await Users.findOne({ email, password });
         if (user) {
-            token = `${user.email}_#_${user._id}_#_${user.password}`
-            res.send({
-                token,
-                user: {
-                    _id: user._id,
-                    email: user.email,
-                    firstName: user.firstName,
-                    lastName: user.lastName,
-                    age: user.age
-                }
-            })
+            if (password == user.password) {
+                res.send({
+                    token: `${email}_#_${user._id}_#_${password}`,
+                    user: {
+                        id: user.id,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        email: user.email,
+                        age: user.age,
+                        createdAt: user.createdAt,
+                    }
+                })
+            } else {
+                res.status(401).send('Auth failure, incorrect password')
+            }
         } else {
             res.status(401).send(`User with ${email} not found`);
         }
@@ -135,10 +138,10 @@ app.post("/register", async (req, res) => {
         if (existingUser) {
             res.status(401).send('cannot create an user with existing email')
         } else {
-            await Users.create({
+            let user = await Users.create({
                 email, password, firstName, lastName, age
             })
-            res.status(201).send('user is created');
+            res.send({ token: `${user.email}_#_${user.password}` });
         }
     } catch (err) {
         res.status(401).send(err.message)

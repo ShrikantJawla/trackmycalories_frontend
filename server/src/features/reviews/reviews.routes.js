@@ -104,5 +104,3 @@ router.patch('/update-disLikes/:reviewId', async (req, res) => {
         res.send(error);
     }
 })
-
-module.exports = router;
