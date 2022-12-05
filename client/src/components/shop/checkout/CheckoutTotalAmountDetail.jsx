@@ -17,7 +17,7 @@ import {
   getAllCartItems,
 } from '../../../redux/cart/cart.actions'
 
-const CheckoutTotalAmountDetail = ({ address }) => {
+const CheckoutTotalAmountDetail = ({ address, toggleOldIsopen }) => {
   const { allCartItems } = useSelector((state) => state.cart)
   const [modeOfPayment, setModeOfPayment] = useState('cash')
   const dispatch = useDispatch()
@@ -68,6 +68,7 @@ const CheckoutTotalAmountDetail = ({ address }) => {
       )
     }
     dispatch(addItemInPuchaseList({ modeOfPayment }))
+    toggleOldIsopen()
   }
 
   return (

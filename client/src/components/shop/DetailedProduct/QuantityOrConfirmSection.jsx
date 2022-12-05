@@ -4,7 +4,6 @@ import {
   HStack,
   Input,
   Text,
-  useNumberInput,
   useToast,
   VStack,
 } from '@chakra-ui/react'

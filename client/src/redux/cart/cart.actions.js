@@ -24,6 +24,7 @@ export const getAllCartItems = () => async (dispatch) => {
 }
 
 export const addItemToCart = (body) => async (dispatch) => {
+    console.log(body);
     dispatch(loading());
     try {
         await axios.post('http://localhost:8080/shop/cart/add-item', body, {
