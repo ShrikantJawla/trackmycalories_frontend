@@ -1,13 +1,13 @@
-import { Box, HStack, Icon, Text, VStack } from '@chakra-ui/react'
+import { Box, Icon, Text, VStack } from '@chakra-ui/react'
 import React from 'react'
 import { AiFillStar } from 'react-icons/ai'
 
-const ProductDetails = () => {
+const ProductDetails = ({ name, rating }) => {
   return (
     <VStack w="full" py="15px" px="25px" spacing={5}>
       <VStack w="full">
         <Text w="full" fontSize={18} fontWeight={600}>
-          Optimum Nutrition (ON) Gold Standard 100 Whey Protein Powder
+          {name && name}
         </Text>
         <Box display="flex" mt="2" alignItems="center" w="full">
           {Array(5)
@@ -16,7 +16,7 @@ const ProductDetails = () => {
               <Icon as={AiFillStar} key={i} color={'yellow.500'} />
             ))}
           <Box as="span" ml="2" color="gray.600" fontSize="sm" fontWeight={700}>
-            {'(' + 20 + ')'}
+            {rating && rating}
           </Box>
         </Box>
       </VStack>

@@ -20,7 +20,8 @@ const ProductsSechema = new Schema({
     "widget-lite-count": String,
     "woocommerce-Price-amount": String,
     "woocommerce-Price-amount 2": String,
-    "category": String
+    "category": String,
+    Quantity: Number,
 })
 
 module.exports = Products = model('shopproduct', ProductsSechema)

@@ -6,17 +6,47 @@ const router = express.Router();
 
 
 router.get('/', async (req, res) => {
-    const { limit = 15, page = 1, category } = req.query;
+    const { limit = 15, page = 1, category, sort } = req.query;
     try {
         let products = await Products.find({}).limit(limit).skip((page - 1) * limit);
         if (category) {
             products = await Products.find({ category: category }).limit(limit).skip((page - 1) * limit);
+            var allProducts = await Products.find({ category: category });
         }
-        res.send(products)
+        if (sort) {
+            products = await Products.find({ category }).limit(limit).skip((page - 1) * limit)
+            if (sort === 'asc') {
+                var newProductList = products.sort(
+                    (a, b) =>
+                        +a['widget-lite-count'].replace('(', '').replace(')', '') -
+                        Number(b['widget-lite-count'].replace('(', '').replace(')', '')),
+                )
+            } else {
+                var newProductList = products.sort(
+                    (a, b) =>
+                        +b['widget-lite-count'].replace('(', '').replace(')', '') -
+                        Number(a['widget-lite-count'].replace('(', '').replace(')', '')),
+                )
+            }
+        }
+        res.send({
+            products: newProductList || products,
+            length: allProducts.length
+        })
     } catch (error) {
         res.send(error)
     }
 });
+
+router.get('/categoriesAndLength', async (req, res) => {
+    try {
+        const categoriesWithLength = await Products.aggregate([{ $group: { _id: '$category', count: { $count: {} } } }])
+        res.send(categoriesWithLength)
+    } catch (error) {
+        res.send(error)
+    }
+})
+
 
 router.get('/categorywiseProducts', async (req, res) => {
     try {
@@ -36,7 +66,7 @@ router.get('/categorywiseProducts', async (req, res) => {
 
 router.get('/product/:id', async (req, res) => {
     try {
-        let product = await Products.findOne({ _id: req.userId });
+        let product = await Products.findOne({ _id: req.params.id });
         res.send(product)
     } catch (error) {
         res.send(error)

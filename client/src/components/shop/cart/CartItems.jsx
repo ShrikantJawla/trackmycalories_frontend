@@ -1,15 +1,11 @@
-import {
-  Button,
-  Divider,
-  HStack,
-  Stack,
-  Text,
-  VStack,
-} from '@chakra-ui/react'
+import { Button, Divider, HStack, Stack, Text, VStack } from '@chakra-ui/react'
 import React from 'react'
 import OneProductInCart from './OneProductInCart'
+import uuid from 'react-uuid'
+import { useNavigate } from 'react-router-dom'
 
-const CartItems = () => {
+const CartItems = ({ allCartItems }) => {
+  const navigate = useNavigate()
   return (
     <Stack
       w="full"
@@ -29,13 +25,14 @@ const CartItems = () => {
           SHOPPING CART
         </Text>
         <Divider m="5px" />
-        <VStack w="full">
-          {new Array(5).fill(0).map((ele, ind) => (
-            <VStack>
-              <OneProductInCart key={ind + `${Date.now()}`} />
-              <Divider />
-            </VStack>
-          ))}
+        <VStack w="full" h="90vh" overflowY="scroll">
+          {allCartItems &&
+            allCartItems.map((ele) => (
+              <VStack w="full" key={uuid()}>
+                <OneProductInCart product={ele} />
+                <Divider />
+              </VStack>
+            ))}
         </VStack>
       </VStack>
       <VStack
@@ -48,13 +45,13 @@ const CartItems = () => {
       >
         <HStack w="full" justify="space-between" px="8px">
           <Text fontSize={24} fontWeight={600}>
-            Subtotal (2 items):
+            Subtotal{` (${allCartItems && allCartItems.length}) `}items:
           </Text>
-          <Text fontSize={28} fontWeight={700} color="orange.600">
-            ₹11,676
+          <Text fontSize={22} fontWeight={700} color="orange.600">
+            ₹{allCartItems && getSubTotal(allCartItems)}
           </Text>
         </HStack>
-        <Button w="full" bg="orange">
+        <Button w="full" bg="orange" onClick={() => navigate('/checkout')}>
           PLACE ORDER
         </Button>
       </VStack>
@@ -63,3 +60,13 @@ const CartItems = () => {
 }
 
 export default CartItems
+
+function getSubTotal(allCartItems) {
+  let total = 0
+  allCartItems &&
+    allCartItems.forEach((ele) => {
+      let price = +ele.product['woocommerce-Price-amount 2'].replace(',', '')
+      total += price
+    })
+  return total
+}

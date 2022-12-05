@@ -7,12 +7,14 @@ import {
   useBreakpointValue,
   VStack,
 } from '@chakra-ui/react'
-import React from 'react'
-import CustomCheckbox from './CustomCheckBox'
+import React, { memo } from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
 
-const CategoryDisplayLeftSideBar = () => {
+const CategoryDisplayLeftSideBar = ({
+  categoriesWithLength,
+  changeCategory,
+}) => {
   const sidebarVisiblity = useBreakpointValue(
     {
       base: false,
@@ -41,6 +43,7 @@ const CategoryDisplayLeftSideBar = () => {
       </HStack>
       {isVisible && (
         <Stack
+          boxShadow="md"
           direction={{ base: 'row', md: 'column' }}
           w="full"
           px="10px"
@@ -62,13 +65,22 @@ const CategoryDisplayLeftSideBar = () => {
               display="flex"
               alignSelf="flex-start"
             />
-            <VStack w="full">
-              {new Array(8).fill(' ').map((ele) => (
-                <CustomCheckbox text="Protein" />
-              ))}
+            <VStack align="flex-start" w="full">
+              {categoriesWithLength &&
+                categoriesWithLength.map((ele) => (
+                  <Button
+                    _hover={{ textDecor: 'underline' }}
+                    variant="ghost"
+                    onClick={() => changeCategory(ele._id)}
+                    key={Date.now().toString + Math.random()}
+                  >
+                    {`${ele._id} (${ele.count})`}
+                  </Button>
+                ))}
             </VStack>
           </VStack>
-          <VStack w="full">
+          {/* Filter by Brand */}
+          {/* <VStack w="full">
             <Text
               w="full"
               fontSize={{ base: '14', lg: 18 }}
@@ -89,11 +101,11 @@ const CategoryDisplayLeftSideBar = () => {
                 <CustomCheckbox text="Protein" />
               ))}
             </VStack>
-          </VStack>
+          </VStack> */}
         </Stack>
       )}
     </>
   )
 }
 
-export default CategoryDisplayLeftSideBar
+export default memo(CategoryDisplayLeftSideBar)

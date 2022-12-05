@@ -1,6 +1,7 @@
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react'
 import { BiChevronRight } from 'react-icons/bi'
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const CustomBreadcrumb = () => {
   return (
@@ -11,17 +12,15 @@ const CustomBreadcrumb = () => {
       separator={<BiChevronRight color="gray.500" />}
     >
       <BreadcrumbItem>
-        <BreadcrumbLink href="#">Home</BreadcrumbLink>
+        <Link to="/cart">Cart</Link>
       </BreadcrumbItem>
 
       <BreadcrumbItem>
-        <BreadcrumbLink fontWeight={600} href="#">
-          About
-        </BreadcrumbLink>
+        <BreadcrumbLink fontWeight={600}>About</BreadcrumbLink>
       </BreadcrumbItem>
 
       <BreadcrumbItem isCurrentPage>
-        <BreadcrumbLink href="#">Contact</BreadcrumbLink>
+        <Link to="/tmc-shop">Home</Link>
       </BreadcrumbItem>
     </Breadcrumb>
   )

@@ -2,16 +2,17 @@ import React from 'react'
 import { Box, CloseButton, HStack, Text, VStack } from '@chakra-ui/react'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { Link } from 'react-router-dom'
+import uuid from 'react-uuid'
 
 const Links = [
-  { name: 'Protein', link: '' },
-  { name: 'BCAA', link: '' },
-  { name: 'Vitamins', link: '' },
-  { name: 'Gainers', link: '' },
-  { name: 'Omega-3', link: '' },
-  { name: 'Peanut-butter', link: '' },
-  { name: 'Plant-protein', link: '' },
-  { name: 'Recently-added', link: '' },
+  { name: 'Protein', link: 'protein' },
+  { name: 'BCAA', link: 'bcaa' },
+  { name: 'Vitamins', link: 'vitamins' },
+  { name: 'Gainers', link: 'massgainer' },
+  { name: 'Omega-3', link: 'omega3' },
+  { name: 'Peanut-butter', link: 'peanutButter' },
+  { name: 'Plant-protein', link: 'plantprotein' },
+  { name: 'Recently-added', link: 'recentlyadded' },
 ]
 
 const SideNav = ({ toggleVisiblity, isVisible }) => {
@@ -44,7 +45,11 @@ const SideNav = ({ toggleVisiblity, isVisible }) => {
             />
           </HStack>
           {Links.map((ele) => (
-            <Link style={{ width: '100%' }}>
+            <Link
+              to={`/products/${ele.link}`}
+              style={{ width: '100%' }}
+              key={uuid()}
+            >
               <HStack
                 w="full"
                 justify="left"

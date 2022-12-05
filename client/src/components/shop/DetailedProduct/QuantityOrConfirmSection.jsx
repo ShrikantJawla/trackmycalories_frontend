@@ -5,30 +5,42 @@ import {
   Input,
   Text,
   useNumberInput,
+  useToast,
   VStack,
 } from '@chakra-ui/react'
-import React from 'react'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { addItemToCart } from '../../../redux/cart/cart.actions'
 
 const boxShadow =
   'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px'
 
-const QuantityOrConfirmSection = () => {
-  const {
-    getInputProps,
-    getIncrementButtonProps,
-    getDecrementButtonProps,
-  } = useNumberInput({
-    step: 1,
-    defaultValue: 1,
-    min: 1,
-    max: 6,
-    precision: 0,
-  })
+const QuantityOrConfirmSection = ({
+  productId,
+  fromAmount,
+  sellingAmount,
+  currencySimbol,
+}) => {
+  const dispatch = useDispatch()
+  const [quantityInput, setQuantityInput] = useState(1)
+  const toast = useToast()
 
-  const inc = getIncrementButtonProps()
-  const dec = getDecrementButtonProps()
-  const input = getInputProps()
-  console.log(input.value)
+  let savedAmount
+  if (fromAmount && sellingAmount) {
+    savedAmount = +fromAmount.replace(',', '') - +sellingAmount.replace(',', '')
+  }
+
+  const handleAddProductInCart = () => {
+    dispatch(addItemToCart({ product: productId, quantity: quantityInput }))
+    toast({
+      position: 'top',
+      title: 'Cart update',
+      description: 'Cart has been updated!',
+      status: 'success',
+      duration: 4000,
+      isClosable: true,
+    })
+  }
 
   return (
     <VStack
@@ -39,6 +51,7 @@ const QuantityOrConfirmSection = () => {
       h="440px"
       rounded="10px"
     >
+      {/* Weight part */}
       <VStack w="full" my="10px">
         <Text w="full" fontSize={11} fontWeight={600}>
           Weight
@@ -60,23 +73,27 @@ const QuantityOrConfirmSection = () => {
         </HStack>
       </VStack>
       <Box w="full" h="1px" bg="gray" />
+      {/* Price Section */}
       <VStack w="full" style={{ marginTop: '20px', marginBottom: '10px' }}>
         <Text w="full">
           MRP:{' '}
           <Box as="span" color="gray" textDecor="line-through">
-            Rs.2205
+            {currencySimbol && currencySimbol}
+            {fromAmount && fromAmount}
           </Box>
         </Text>
         <Text w="full">
           Selling Price:{' '}
           <Box as="span" color="brown" fontWeight={700} fontSize={20}>
-            Rs.2205
+            {currencySimbol && currencySimbol}
+            {sellingAmount && sellingAmount}
           </Box>
         </Text>
         <Text w="full">
           You Save:{' '}
           <Box as="span" color="gray">
-            Rs.2205
+            {currencySimbol && currencySimbol}
+            {savedAmount}
           </Box>
         </Text>
         <Text fontSize={13} w="full">
@@ -89,15 +106,32 @@ const QuantityOrConfirmSection = () => {
         </Text>
         <HStack w="full">
           <HStack w="35%" spacing="1px">
-            <Button variant="solid" colorScheme="blackAlpha" size="sm" {...inc}>
-              +
-            </Button>
-            <Input {...input} />
-            <Button variant="solid" colorScheme="blackAlpha" size="sm" {...dec}>
+            <Button
+              variant="solid"
+              colorScheme="blackAlpha"
+              size="sm"
+              disabled={quantityInput === 1}
+              onClick={() => setQuantityInput(quantityInput - 1)}
+            >
               -
             </Button>
+            <Input value={quantityInput} />
+            <Button
+              variant="solid"
+              colorScheme="blackAlpha"
+              size="sm"
+              disabled={quantityInput === 10}
+              onClick={() => setQuantityInput(quantityInput + 1)}
+            >
+              +
+            </Button>
           </HStack>
-          <Button variant="solid" colorScheme="blue" w="65%">
+          <Button
+            variant="solid"
+            colorScheme="blue"
+            w="65%"
+            onClick={handleAddProductInCart}
+          >
             ADD TO CART
           </Button>
         </HStack>

@@ -1,25 +1,29 @@
 import { Box, HStack, Image, Text, VStack } from '@chakra-ui/react'
 import React from 'react'
 import QuantityChangeStepper from './QuantityChangeStepper'
-import { Button } from '@chakra-ui/react';
+import { Button } from '@chakra-ui/react'
+import { useDispatch } from 'react-redux'
+import { deleteProductFromCart } from '../../../redux/cart/cart.actions'
 
-const OneProductInCart = () => {
+const OneProductInCart = ({ product }) => {
+  const dispatch = useDispatch()
   return (
     <HStack w="full" p="5px">
       <Box h="150px">
         <Image
           h="full"
-          src="https://cdn.nutrabay.com/wp-content/uploads/2020/08/NB-OPT-1002-13_1-340x340.jpg"
+          src={
+            product && product.product['attachment-woocommerce_thumbnail src']
+          }
         />
       </Box>
       <VStack>
         <Text w="full" fontSize={18} fontWeight={600}>
-          Optimum Nutrition (ON) Gold Standard 100 Whey Protein Powder - 2 lbs,
-          Delicious Strawberry
+          {product && product.product.name}
         </Text>
         <HStack w="full" spacing={2}>
           <Text fontSize={20} fontWeight={700} color="brown">
-            Rs.3,997
+            {product && product.product['woocommerce-Price-amount 2']}
           </Text>
           <Text
             textDecor="line-through"
@@ -27,17 +31,23 @@ const OneProductInCart = () => {
             fontWeight={500}
             color="gray"
           >
-            2,222
+            {product && product.product['woocommerce-Price-amount']}
           </Text>
           <Text fontSize={18} color="gray">
             {'('}
-            7%off
+            {product && product.product.onsale}
             {')'}
           </Text>
         </HStack>
         <HStack w="full" justify="flex-start">
-          <QuantityChangeStepper />
-          <Button fontSize={14} h="40px" colorScheme="orange" variant="outline">
+          <QuantityChangeStepper product={product} />
+          <Button
+            fontSize={14}
+            h="40px"
+            colorScheme="orange"
+            variant="outline"
+            onClick={() => dispatch(deleteProductFromCart(product._id))}
+          >
             REMOVE
           </Button>
         </HStack>
