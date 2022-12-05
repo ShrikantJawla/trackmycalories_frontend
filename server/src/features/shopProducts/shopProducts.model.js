@@ -23,3 +23,5 @@ const ProductsSechema = new Schema({
     "category": String,
     Quantity: Number,
 })
+
+module.exports = Products = model('shopproduct', ProductsSechema)
