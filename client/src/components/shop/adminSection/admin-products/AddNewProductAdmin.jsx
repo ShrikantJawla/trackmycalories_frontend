@@ -8,10 +8,15 @@ import {
   HStack,
   Input,
   Text,
+  useToast,
   VStack,
 } from '@chakra-ui/react'
+import { useDispatch } from 'react-redux'
+import { addNewProduct } from '../../../../redux/admin/admin.actions'
 
 const AddNewProductAdmin = ({ isVisible, toggleVisiblity }) => {
+  const dispatch = useDispatch()
+  const toast = useToast()
   const [newProductDetails, setNewProductDetails] = useState({
     name: '',
     image: '',
@@ -27,19 +32,45 @@ const AddNewProductAdmin = ({ isVisible, toggleVisiblity }) => {
   }
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(newProductDetails)
+    if (
+      newProductDetails.name === '' ||
+      newProductDetails.image === '' ||
+      newProductDetails.totalPrice === '' ||
+      newProductDetails.afterDiscountPrice === '' ||
+      newProductDetails.category === '' ||
+      newProductDetails.discountPercentage === ''
+    ) {
+      return toast({
+        position: 'top',
+        title: 'Input feild Error!',
+        description: 'Please fill all the fields to proceed!',
+        status: 'warning',
+        duration: 4000,
+        isClosable: true,
+      })
+    }
+    dispatch(addNewProduct(newProductDetails))
+    toast({
+      position: 'top',
+      title: 'Product added!',
+      description: 'New Product has been added successfully',
+      status: 'success',
+      duration: 4000,
+      isClosable: true,
+    })
+    toggleVisiblity()
   }
   if (isVisible)
     return (
       <VStack
         as="form"
-        position="fixed"
         w={{ base: 'full', md: '500px' }}
         boxShadow="var(--boxShadow)"
+        position="fixed"
         bg="white"
-        top="15%"
+        top="10%"
         left={{ base: '0', md: '17%', lg: '38%' }}
-        px="15px"
+        px="19px"
         py="20px"
         onSubmit={handleSubmit}
       >
@@ -72,7 +103,6 @@ const AddNewProductAdmin = ({ isVisible, toggleVisiblity }) => {
             <FormLabel>Category of Product</FormLabel>
             <Input
               name="category"
-              type="url"
               value={newProductDetails.category}
               onChange={handleChange}
             />

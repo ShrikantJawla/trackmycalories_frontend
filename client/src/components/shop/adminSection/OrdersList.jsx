@@ -11,11 +11,14 @@ import {
   Icon,
 } from '@chakra-ui/react'
 import { FcViewDetails } from 'react-icons/fc'
-import { BiEdit } from 'react-icons/bi'
+// import { BiEdit } from 'react-icons/bi'
 import React, { useState } from 'react'
 import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { showSingleProduct } from '../../../redux/admin/admin.actions'
 
 const OrdersList = ({ orderDetails, toggleOpen }) => {
+  const dispatch = useDispatch()
   const [allOrders, setAllOrders] = useState([])
   useEffect(() => {
     if (orderDetails.deleveredOrders) {
@@ -47,8 +50,8 @@ const OrdersList = ({ orderDetails, toggleOpen }) => {
             <Tr key={ind}>
               <Td>{ele?._id}</Td>
               <Td textAlign="center">{ele?.modeOfPayment}</Td>
-              <Td textAlign="center">{ele?.dateOfPurchase}</Td>
-              <Td textAlign="center">{ele?.dateOfDelevery}</Td>
+              <Td textAlign="center">{ele?.dateOfPurchase.slice(0,10)}</Td>
+              <Td textAlign="center">{ele?.dateOfDelevery.slice(0,10)}</Td>
               <Td>
                 <Badge
                   variant="solid"
@@ -67,7 +70,10 @@ const OrdersList = ({ orderDetails, toggleOpen }) => {
                 <Icon
                   cursor="pointer"
                   fontSize={20}
-                  onClick={toggleOpen}
+                  onClick={() => {
+                    toggleOpen()
+                    dispatch(showSingleProduct(ele?.product))
+                  }}
                   as={FcViewDetails}
                 />
                 {/* <Icon cursor="pointer" fontSize={20} ml="10px" as={BiEdit} /> */}

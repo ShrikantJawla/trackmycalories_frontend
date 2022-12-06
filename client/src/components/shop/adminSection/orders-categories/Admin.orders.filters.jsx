@@ -1,7 +1,10 @@
 import { Grid, GridItem, Input, Select, Text, VStack } from '@chakra-ui/react'
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { filterOrders } from '../../../../redux/admin/admin.actions'
 
 const AdminOrdersFilters = () => {
+  const dispatch = useDispatch()
   return (
     <Grid
       templateColumns={{
@@ -18,7 +21,10 @@ const AdminOrdersFilters = () => {
           <Text w="full" fontSize={13} pl="5px" fontWeight={600}>
             Filter by Payment Methods
           </Text>
-          <Select placeholder="Select option">
+          <Select
+            onClick={({ target: { value } }) => dispatch(filterOrders(value))}
+            placeholder="Select option"
+          >
             <option value="card">Card</option>
             <option value="cash">Cash</option>
           </Select>
@@ -31,7 +37,12 @@ const AdminOrdersFilters = () => {
           <Text w="full" fontSize={13} pl="5px" fontWeight={600}>
             Filter Order by Month
           </Text>
-          <Input type="month" />
+          <Input
+            onChange={({ target: { value } }) => {
+              dispatch(filterOrders('', value.split('-')[1]))
+            }}
+            type="month"
+          />
         </VStack>
       </GridItem>
 
@@ -41,7 +52,12 @@ const AdminOrdersFilters = () => {
           <Text w="full" fontSize={13} pl="5px" fontWeight={600}>
             Filter by Product delevery month
           </Text>
-          <Input type="month" />
+          <Input
+            onChange={({ target: { value } }) => {
+              dispatch(filterOrders('', '', value.split('-')[1]))
+            }}
+            type="month"
+          />
         </VStack>
       </GridItem>
 
@@ -51,9 +67,14 @@ const AdminOrdersFilters = () => {
           <Text w="full" fontSize={13} pl="5px" fontWeight={600}>
             Filter by Status
           </Text>
-          <Select placeholder="Select option">
+          <Select
+            onChange={({ target: { value } }) => {
+              dispatch(filterOrders('', '', '', value))
+            }}
+            placeholder="Select option"
+          >
             <option value="pending">Pending</option>
-            <option value="cancelled">cancelled</option>
+            {/* <option value="cancelled">cancelled</option> */}
             <option value="delevered">Delevered</option>
           </Select>
         </VStack>
@@ -65,7 +86,12 @@ const AdminOrdersFilters = () => {
           <Text w="full" fontSize={13} pl="5px" fontWeight={600}>
             Filter by Amount
           </Text>
-          <Select placeholder="Select option">
+          <Select
+            onClick={({ target: { value } }) => {
+              dispatch(filterOrders('', '', '', '', value))
+            }}
+            placeholder="Select option"
+          >
             <option value="asc">asc</option>
             <option value="desc">desc</option>
           </Select>

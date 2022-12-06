@@ -75,7 +75,7 @@ router.get('/', async (req, res) => {
             } else {
                 allProducts = await Products.find({}).limit(limit).skip((page - 1) * limit)
             }
-            if (sort === 'asc') {
+            if (sortByRating === 'asc') {
                 var newProductList = allProducts.sort(
                     (a, b) =>
                         +a['widget-lite-count'].replace('(', '').replace(')', '') -
@@ -114,7 +114,7 @@ router.get('/', async (req, res) => {
         }
         res.send(allProducts)
     } catch (error) {
-        console.log(error.message);
+        console.log('error', error.message);
     }
 })
 
@@ -158,7 +158,7 @@ router.get('/filterOrders', async (req, res) => {
     let items = await PurchasedItems.find({}).populate(['product']).limit(limit).skip((page - 1) * limit);
     try {
         if (paymentMethod) {
-            items = await PurchasedItems.find({ modeOfPayment: paymentMethod }).limit(limit).skip((page - 1) * limit);
+            items = await PurchasedItems.find({ modeOfPayment: paymentMethod }).populate(['product']).limit(limit).skip((page - 1) * limit);
         }
         if (monthOfOrder) {
             if (Number(monthOfOrder) > 12 || Number(monthOfOrder) < 1) {
@@ -202,7 +202,34 @@ router.get('/filterOrders', async (req, res) => {
 })
 
 
+router.patch('/update-product/:productId', async (req, res) => {
+    const { productId } = req.params
+    const { name, image, totalPrice, discountPercentage, afterDiscountPrice, quantity, category } = req.body;
+    try {
+        await Products.updateOne({ _id: productId }, {
+            name,
+            "attachment-woocommerce_thumbnail src": image,
+            "woocommerce-Price-amount": totalPrice,
+            "woocommerce-Price-amount 2": afterDiscountPrice,
+            onsale: `-${discountPercentage}%`,
+            Quantity: quantity,
+            category
+        })
+        res.send('product has been updated successfully')
+    } catch (error) {
+        console.log(error);
+    }
+})
 
+router.delete('/delete-product/:productId', async (req, res) => {
+    const { productId } = req.params
+    try {
+        await Products.findByIdAndDelete(productId);
+        res.send('product is successfully deleted')
+    } catch (error) {
+        console.log(error);
+    }
+})
 
 
 module.exports = router
