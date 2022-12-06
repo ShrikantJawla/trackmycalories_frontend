@@ -5,6 +5,7 @@ import { authReducer } from './auth/auth.reducer'
 import { tasksReducer } from './tasks/tasks.reducer';
 import { shopReducer } from './shopProducts/shop.reducer';
 import { cartReducer } from './cart/cart.reducer';
+import { adminReducer } from './admin/admin.reducer';
 
 
 const createComposer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
     tasks: tasksReducer,
     shop: shopReducer,
     cart: cartReducer,
+    admin: adminReducer,
 })
 
 export const store = createStore(rootReducer, createComposer(applyMiddleware(thunk)))

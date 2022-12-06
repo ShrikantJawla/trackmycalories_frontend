@@ -20,6 +20,11 @@ const authSchema = new mongoose.Schema({
         age: { type: Number },
         weight: { type: Number },
     },
+    role: {
+        type: String,
+        enum: ["admin", "user"],
+        default: "user",
+    }
 },
     { timestamps: true }
 )

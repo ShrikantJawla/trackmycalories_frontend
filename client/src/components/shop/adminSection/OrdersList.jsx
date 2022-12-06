@@ -12,9 +12,19 @@ import {
 } from '@chakra-ui/react'
 import { FcViewDetails } from 'react-icons/fc'
 import { BiEdit } from 'react-icons/bi'
-import React from 'react'
+import React, { useState } from 'react'
+import { useEffect } from 'react'
 
-const OrdersList = () => {
+const OrdersList = ({ orderDetails, toggleOpen }) => {
+  const [allOrders, setAllOrders] = useState([])
+  useEffect(() => {
+    if (orderDetails.deleveredOrders) {
+      setAllOrders([
+        ...orderDetails?.pendingOrders,
+        ...orderDetails?.deleveredOrders,
+      ])
+    }
+  }, [orderDetails.deleveredOrders])
   return (
     <TableContainer w="full">
       <Text textAlign="center" fontSize={20} fontWeight={600} w="full">
@@ -33,21 +43,34 @@ const OrdersList = () => {
           </Tr>
         </Thead>
         <Tbody>
-          {new Array(5).fill(0).map((ele, ind) => (
+          {allOrders.map((ele, ind) => (
             <Tr key={ind}>
-              <Td>5454544545</Td>
-              <Td>Cash</Td>
-              <Td>September 8th 2020</Td>
-              <Td>September 12th 2020</Td>
+              <Td>{ele?._id}</Td>
+              <Td textAlign="center">{ele?.modeOfPayment}</Td>
+              <Td textAlign="center">{ele?.dateOfPurchase}</Td>
+              <Td textAlign="center">{ele?.dateOfDelevery}</Td>
               <Td>
-                <Badge variant="solid" colorScheme="blue">
-                  pending
+                <Badge
+                  variant="solid"
+                  colorScheme={
+                    StatusOfOrder(ele?.dateOfDelevery, currentTime()) ===
+                    'Pending'
+                      ? 'orange'
+                      : 'green'
+                  }
+                >
+                  {StatusOfOrder(ele?.dateOfDelevery, currentTime())}
                 </Badge>
               </Td>
-              <Td>Rs.3400</Td>
+              <Td>₹{ele?.product['woocommerce-Price-amount 2']}</Td>
               <Td>
-                <Icon cursor="pointer" fontSize={20} as={FcViewDetails} />
-                <Icon cursor="pointer" fontSize={20} ml="10px" as={BiEdit} />
+                <Icon
+                  cursor="pointer"
+                  fontSize={20}
+                  onClick={toggleOpen}
+                  as={FcViewDetails}
+                />
+                {/* <Icon cursor="pointer" fontSize={20} ml="10px" as={BiEdit} /> */}
               </Td>
             </Tr>
           ))}
@@ -58,3 +81,20 @@ const OrdersList = () => {
 }
 
 export default OrdersList
+
+function StatusOfOrder(deleveryTime, currentTime) {
+  if (new Date(deleveryTime) - new Date(currentTime) > 0) {
+    return 'Pending'
+  } else {
+    return 'Delevered'
+  }
+}
+
+function currentTime() {
+  let time = new Date()
+  return `${time.getFullYear()}-${
+    time.getMonth() + 1 < 10 ? `0${time.getMonth() + 1}` : time.getMonth() + 1
+  }-${time.getDate() < 10 ? `0${time.getDate()}` : time.getDate()}T${
+    time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()
+  }:${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}`
+}

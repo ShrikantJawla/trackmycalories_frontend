@@ -18,7 +18,9 @@ const purchasedItemsSchema = new Schema({
     modeOfPayment: {
         type: String,
         enum: ['cash', 'card']
-    }
+    },
+    dateOfPurchase: String,
+    dateOfDelevery: String,
 }, {
     timestamps: true
 })

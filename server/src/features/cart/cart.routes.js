@@ -109,12 +109,16 @@ router.patch('/purchase', async (req, res) => {
                 await Products.findByIdAndUpdate(item.product,
                     { $set: { Quantity: product.Quantity - item.quantity } }
                 )
-                //add the purchased item in purchased collection
+                //add the purchased item in purchased collection with currentTime and delevery-time
+                let timeOfOrder = currentTime();
+                let deleverytime = deleveryTime()
                 await PurchasedItems.create({
                     user: req.userId,
                     product: item.product,
                     quantity: item.quantity,
-                    modeOfPayment
+                    modeOfPayment,
+                    dateOfPurchase: timeOfOrder,
+                    dateOfDelevery: deleverytime
                 })
                 //delete that purchased item from cart now
                 await CartItems.findByIdAndDelete(item._id)
@@ -128,3 +132,18 @@ router.patch('/purchase', async (req, res) => {
 
 
 module.exports = router;
+
+
+function currentTime() {
+    let time = new Date()
+    return `${time.getFullYear()}-${time.getMonth() + 1 < 10 ? `0${time.getMonth() + 1}` : time.getMonth() + 1
+        }-${time.getDate() < 10 ? `0${time.getDate()}` : time.getDate()}T${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()
+        }:${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}`
+}
+
+function deleveryTime() {
+    let time = new Date()
+    return `${time.getFullYear()}-${time.getMonth() + 1 < 10 ? `0${time.getMonth() + 1}` : time.getMonth() + 1
+        }-${time.getDate() < 10 ? `0${time.getDate() + 3}` : time.getDate() + 3}T${time.getHours() < 10 ? `0${time.getHours()}` : time.getHours()
+        }:${time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()}`
+}
