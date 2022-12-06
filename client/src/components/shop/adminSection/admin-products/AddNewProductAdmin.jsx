@@ -11,14 +11,15 @@ import {
   VStack,
 } from '@chakra-ui/react'
 
-const AddNewProductAdmin = ({isVisible,toggleVisiblity}) => {
+const AddNewProductAdmin = ({ isVisible, toggleVisiblity }) => {
   const [newProductDetails, setNewProductDetails] = useState({
     name: '',
     image: '',
     quantity: 1,
     totalPrice: '',
-    discount: '',
+    discountPercentage: '',
     afterDiscountPrice: '',
+    category: '',
   })
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -57,15 +58,26 @@ const AddNewProductAdmin = ({isVisible,toggleVisiblity}) => {
             onChange={handleChange}
           />
         </FormControl>
-        <FormControl>
-          <FormLabel>Image url of Product</FormLabel>
-          <Input
-            name="image"
-            type="url"
-            value={newProductDetails.image}
-            onChange={handleChange}
-          />
-        </FormControl>
+        <HStack w="full">
+          <FormControl w="60%">
+            <FormLabel>Image url of Product</FormLabel>
+            <Input
+              name="image"
+              type="url"
+              value={newProductDetails.image}
+              onChange={handleChange}
+            />
+          </FormControl>
+          <FormControl w="40%">
+            <FormLabel>Category of Product</FormLabel>
+            <Input
+              name="category"
+              type="url"
+              value={newProductDetails.category}
+              onChange={handleChange}
+            />
+          </FormControl>
+        </HStack>
 
         <HStack w="full" justify="space-between">
           <FormControl>
@@ -80,9 +92,9 @@ const AddNewProductAdmin = ({isVisible,toggleVisiblity}) => {
           <FormControl>
             <FormLabel>discount percentage</FormLabel>
             <Input
-              name="discount"
+              name="discountPercentage"
               type="number"
-              value={newProductDetails.discount}
+              value={newProductDetails.discountPercentage}
               onChange={handleChange}
             />
           </FormControl>

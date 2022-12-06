@@ -2,25 +2,26 @@ import { HStack, Icon, Text, VStack } from '@chakra-ui/react'
 import React from 'react'
 import { MdPendingActions } from 'react-icons/md'
 
-const InformationBox = ({ text, val, color, icon }) => {
+const InformationBox = ({ text, value, bg, icon }) => {
   return (
     <HStack
-      bg="#e62222"
+      bg={bg}
       rounded="5px"
-      w="260px"
-      boxShadow="md"
+      w="80%"
+      margin="auto"
+      boxShadow="lg"
       h="100px"
       p="8px"
-      pl="10px"
+      pl="18px"
       color="white"
     >
       <VStack w="80%">
-        <Text w="full">ORDER PENDING</Text>
+        <Text w="full">{text}</Text>
         <Text w="full" fontWeight={700}>
-          2
+          ₹{value}
         </Text>
       </VStack>
-      <Icon as={MdPendingActions} fontSize={29} />
+      <Icon as={icon || MdPendingActions} fontSize={29} />
     </HStack>
   )
 }

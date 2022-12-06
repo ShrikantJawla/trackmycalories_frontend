@@ -5,7 +5,7 @@ const ProductsSechema = new Schema({
     onsale: String,
     "image-none href": String,
     "attachment-woocommerce_thumbnail src": String,
-    "name": String,
+    "name": { type: String, required: true },
     "widget-lite-container href": String,
     "widget-lite-score-detailed": String,
     "widget-lite-score-detailed 2": String,
