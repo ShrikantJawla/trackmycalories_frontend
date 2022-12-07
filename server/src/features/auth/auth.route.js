@@ -71,7 +71,7 @@ app.post('/update-avatar', authMiddleWare, upload.single('avatar'), async (req, 
     try {
         let oldUser = await Users.findOne({ _id: req.userId })
         let oldImg = oldUser.img;
-        if (oldImg) fs.unlinkSync(`./upload/Images/${oldImg}`)
+        // if (oldImg) fs.unlinkSync(`./upload/Images/${oldImg}`)
         await Users.updateOne({ _id: req.userId }, { $set: { img } })
         let updatedUser = await Users.findOne({ _id: req.userId })
         res.send({
