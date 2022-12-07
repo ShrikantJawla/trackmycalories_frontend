@@ -12,7 +12,7 @@ const DiscountCircle = ({ onsale }) => {
       bg="red.500"
     >
       <Text fontWeight="bold" color="white" fontSize={17}>
-        {onsale && onsale}
+        {onsale && onsale}%
       </Text>
     </Circle>
   )

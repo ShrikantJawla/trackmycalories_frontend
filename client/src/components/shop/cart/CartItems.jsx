@@ -65,7 +65,7 @@ function getSubTotal(allCartItems) {
   let total = 0
   allCartItems &&
     allCartItems.forEach((ele) => {
-      let price = +ele.product['woocommerce-Price-amount 2'].replace(',', '')
+      let price = +ele.product['woocommerce-Price-amount 2']
       total += price
     })
   return total

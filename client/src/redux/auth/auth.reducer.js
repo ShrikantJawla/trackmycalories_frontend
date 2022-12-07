@@ -2,6 +2,7 @@
 import { AUTH_SIGN_IN_ERROR, AUTH_SIGN_IN_LOADING, AUTH_SIGN_IN_SUCCESS, AUTH_SIGN_OUT, AUTH_SIGN_UP_LOADING, AUTH_SIGN_UP_SUCCESS, AUTH_SIGN_UP_ERROR, GET_USER, UPDATE_PROFILE_PICTURE, UPDATE_PROFILE_ERROR, UPDATE_PROFILE_SUCCESS } from "./auth.types";
 
 const userToken = localStorage.getItem('checkmycalorieToken') || ''
+const userRole = localStorage.getItem('checkMyCalorieRole') || ''
 export const authInitalState = {
   signupLoading: false,
   loginLoading: false,
@@ -10,6 +11,7 @@ export const authInitalState = {
   updateProfileError: false,
   token: userToken,
   isAuth: userToken === '' ? false : true,
+  isAdmin: userRole === 'admin' ? true : false,
   userInfo: {},
 };
 
@@ -33,11 +35,13 @@ export const authReducer = (state = authInitalState, { type, payload }) => {
 
     case AUTH_SIGN_IN_SUCCESS: {
       localStorage.setItem('checkmycalorieToken', payload.token)
+      localStorage.setItem('checkMyCalorieRole', payload.user.role)
       return {
         ...state,
         loginLoading: false,
         token: payload.token,
         isAuth: true,
+        isAdmin: payload.user.role === 'admin' ? true : false,
         loginError: false
       }
     }
@@ -65,11 +69,13 @@ export const authReducer = (state = authInitalState, { type, payload }) => {
     }
     case AUTH_SIGN_OUT: {
       localStorage.removeItem('checkmycalorieToken')
+      localStorage.removeItem('checkMyCalorieRole')
       return {
         ...state,
         loading: false,
         token: "",
         isAuth: false,
+        isAdmin: false,
         signupError: false
       }
     }

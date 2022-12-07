@@ -23,7 +23,7 @@ const OneProductInCart = ({ product }) => {
         </Text>
         <HStack w="full" spacing={2}>
           <Text fontSize={20} fontWeight={700} color="brown">
-            {product && product.product['woocommerce-Price-amount 2']}
+            ₹{product && product.product['woocommerce-Price-amount 2']}
           </Text>
           <Text
             textDecor="line-through"
@@ -31,7 +31,7 @@ const OneProductInCart = ({ product }) => {
             fontWeight={500}
             color="gray"
           >
-            {product && product.product['woocommerce-Price-amount']}
+            ₹{product && product.product['woocommerce-Price-amount']}
           </Text>
           <Text fontSize={18} color="gray">
             {'('}

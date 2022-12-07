@@ -22,6 +22,8 @@ const adminCheckMiddleware = async (req, res, next) => {
 
 
 
+
+
 const router = Router();
 router.use(adminCheckMiddleware);
 
@@ -45,7 +47,7 @@ router.get('/orders-details', async (req, res) => {
 
         // Finding total revenue
         let revenue = allItems.reduce((acc, ele) =>
-            acc + Number(ele.product["woocommerce-Price-amount 2"].replace(',', '')), 0)
+            acc + Number(ele.product["woocommerce-Price-amount 2"]), 0)
 
         let allOrdersDetails = {
             pendingOrders,
@@ -75,7 +77,7 @@ router.get('/', async (req, res) => {
             } else {
                 allProducts = await Products.find({}).limit(limit).skip((page - 1) * limit)
             }
-            if (sort === 'asc') {
+            if (sortByRating === 'asc') {
                 var newProductList = allProducts.sort(
                     (a, b) =>
                         +a['widget-lite-count'].replace('(', '').replace(')', '') -
@@ -114,7 +116,7 @@ router.get('/', async (req, res) => {
         }
         res.send(allProducts)
     } catch (error) {
-        console.log(error.message);
+        console.log('error', error.message);
     }
 })
 
@@ -124,7 +126,7 @@ router.post('/add-newproduct', async (req, res) => {
         const existingProduct = await Products.findOne({ name });
         if (!existingProduct) {
             await Products.create({
-                onsale: `-${discountPercentage}%`,
+                onsale: -discountPercentage,
                 "attachment-woocommerce_thumbnail src": image,
                 name,
                 "widget-lite-score-detailed": '5 stars',
@@ -138,8 +140,8 @@ router.post('/add-newproduct', async (req, res) => {
                 "widget-lite-score-detailed 9": '1 stars',
                 "widget-lite-score-detailed 10": '0%',
                 "widget-lite-count": '(0)',
-                "woocommerce-Price-amount": `${totalPrice}`,
-                "woocommerce-Price-amount 2": `${afterDiscountPrice}`,
+                "woocommerce-Price-amount": +totalPrice,
+                "woocommerce-Price-amount 2": +afterDiscountPrice,
                 "category": category,
                 Quantity: quantity,
             })
@@ -158,7 +160,7 @@ router.get('/filterOrders', async (req, res) => {
     let items = await PurchasedItems.find({}).populate(['product']).limit(limit).skip((page - 1) * limit);
     try {
         if (paymentMethod) {
-            items = await PurchasedItems.find({ modeOfPayment: paymentMethod }).limit(limit).skip((page - 1) * limit);
+            items = await PurchasedItems.find({ modeOfPayment: paymentMethod }).populate(['product']).limit(limit).skip((page - 1) * limit);
         }
         if (monthOfOrder) {
             if (Number(monthOfOrder) > 12 || Number(monthOfOrder) < 1) {
@@ -186,11 +188,11 @@ router.get('/filterOrders', async (req, res) => {
         }
         if (amount) {
             if (amount === 'asc') {
-                items.sort((a, b) => +a.product["woocommerce-Price-amount 2"].replace(',', '')
-                    - Number(b.product["woocommerce-Price-amount 2"].replace(',', '')))
+                items.sort((a, b) => a.product["woocommerce-Price-amount 2"]
+                    - b.product["woocommerce-Price-amount 2"])
             } else if (amount === 'desc') {
-                items.sort((a, b) => +b.product["woocommerce-Price-amount 2"].replace(',', '')
-                    - Number(a.product["woocommerce-Price-amount 2"].replace(',', '')))
+                items.sort((a, b) => b.product["woocommerce-Price-amount 2"]
+                    - a.product["woocommerce-Price-amount 2"])
             } else {
                 return res.send('wrong query!')
             }
@@ -202,7 +204,34 @@ router.get('/filterOrders', async (req, res) => {
 })
 
 
+router.patch('/update-product/:productId', async (req, res) => {
+    const { productId } = req.params
+    const { name, image, totalPrice, discountPercentage, afterDiscountPrice, quantity, category } = req.body;
+    try {
+        await Products.updateOne({ _id: productId }, {
+            name,
+            "attachment-woocommerce_thumbnail src": image,
+            "woocommerce-Price-amount": +totalPrice,
+            "woocommerce-Price-amount 2": +afterDiscountPrice,
+            onsale: -discountPercentage,
+            Quantity: quantity,
+            category
+        })
+        res.send('product has been updated successfully')
+    } catch (error) {
+        console.log(error);
+    }
+})
 
+router.delete('/delete-product/:productId', async (req, res) => {
+    const { productId } = req.params
+    try {
+        await Products.findByIdAndDelete(productId);
+        res.send('product is successfully deleted')
+    } catch (error) {
+        console.log(error);
+    }
+})
 
 
 module.exports = router

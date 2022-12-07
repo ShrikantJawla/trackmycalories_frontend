@@ -28,12 +28,12 @@ const links = [
     text: 'Categories',
     icon: <BsListTask className="icons" />,
   },
-  {
-    to: '/customers',
-    loc: 'adminCustomers',
-    text: 'Customers',
-    icon: <MdPersonSearch className="icons" />,
-  },
+  // {
+  //   to: '/customers',
+  //   loc: 'adminCustomers',
+  //   text: 'Customers',
+  //   icon: <MdPersonSearch className="icons" />,
+  // },
 ]
 
 const DashboardSidebar = ({ location }) => {

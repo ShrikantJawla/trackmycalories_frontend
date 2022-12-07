@@ -1,6 +1,14 @@
 
 import axios from 'axios';
-import { ADD_NEW_PRODUCT, FILTER_ORDERS, GET_ALL_ORDERS_RELATED_DATA, GET_FILTERED_PURCHASED_PRODUCTS } from './admin.types';
+import {
+    ADD_NEW_PRODUCT,
+    ADD_SINGLE_PRODUCT_INFO,
+    DELETE_SHOP_PRODUCT,
+    FILTER_ORDERS,
+    GET_ALL_ORDERS_RELATED_DATA,
+    GET_FILTERED_SHOP_PRODUCTS,
+    UPDATE_SHOP_PRODUCT
+} from './admin.types';
 
 export const getAllOrderRelatedData = () => async (dispatch) => {
     try {
@@ -22,14 +30,14 @@ export const getAllOrderRelatedData = () => async (dispatch) => {
     }
 }
 
-export const getFilteredPurchasedProducts = () => async (dispatch) => {
+export const getFilteredShopProducts = (q = '', page, sortByRating = '', filterByCategory = '', filterByQuantity = '') => async (dispatch) => {
     try {
-        let { data } = await axios.get('http://localhost:8080/admin/', {
+        let { data } = await axios.get(`http://localhost:8080/admin?q=${q}&page=${page}&sortByRating=${sortByRating}&filterByCategory=${filterByCategory}&filterByQuantity=${filterByQuantity}`, {
             headers: {
                 token: localStorage.getItem('checkmycalorieToken')
             }
         })
-        dispatch({ type: GET_FILTERED_PURCHASED_PRODUCTS, payload: data })
+        dispatch({ type: GET_FILTERED_SHOP_PRODUCTS, payload: data })
     } catch (error) {
         console.log(error);
     }
@@ -50,9 +58,9 @@ export const addNewProduct = (body) => async (dispatch) => {
 
 }
 
-export const filteredProducts = () => async (dispatch) => {
+export const filterOrders = (paymentMethod = '', monthOfOrder = '', monthOfDelevery = '', status = '', amount = '', page) => async (dispatch) => {
     try {
-        let { data } = await axios.get('http://localhost:8080/admin/filterOrders', {
+        let { data } = await axios.get(`http://localhost:8080/admin/filterOrders?paymentMethod=${paymentMethod}&monthOfOrder=${monthOfOrder}&monthOfDelevery=${monthOfDelevery}&status=${status}&amount=${amount}&page=${page}`, {
             headers: {
                 token: localStorage.getItem('checkmycalorieToken')
             }
@@ -61,5 +69,38 @@ export const filteredProducts = () => async (dispatch) => {
     } catch (error) {
         console.log(error);
     }
+}
 
+
+export const showSingleProduct = (product) => (dispatch) => {
+    dispatch({ type: ADD_SINGLE_PRODUCT_INFO, payload: product })
+}
+
+export const deleteShopProduct = (productId) => async (dispatch) => {
+    try {
+        await axios.delete(`http://localhost:8080/admin/delete-product/${productId}`, {
+            headers: {
+                token: localStorage.getItem('checkmycalorieToken')
+            }
+        })
+        dispatch({ type: DELETE_SHOP_PRODUCT })
+        dispatch(getFilteredShopProducts())
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+export const updateShopProduct = (productId, body) => async (dispatch) => {
+    try {
+        await axios.patch(`http://localhost:8080/admin/update-product/${productId}`, body, {
+            headers: {
+                token: localStorage.getItem('checkmycalorieToken')
+            }
+        })
+        dispatch({ type: UPDATE_SHOP_PRODUCT })
+        dispatch(getFilteredShopProducts())
+    } catch (error) {
+        console.log(error);
+    }
 }

@@ -2,7 +2,7 @@ const { model, Schema } = require('mongoose')
 
 
 const ProductsSechema = new Schema({
-    onsale: String,
+    onsale: Number,
     "image-none href": String,
     "attachment-woocommerce_thumbnail src": String,
     "name": { type: String, required: true },
@@ -18,8 +18,8 @@ const ProductsSechema = new Schema({
     "widget-lite-score-detailed 9": String,
     "widget-lite-score-detailed 10": String,
     "widget-lite-count": String,
-    "woocommerce-Price-amount": String,
-    "woocommerce-Price-amount 2": String,
+    "woocommerce-Price-amount": Number,
+    "woocommerce-Price-amount 2": Number,
     "category": String,
     Quantity: Number,
 })

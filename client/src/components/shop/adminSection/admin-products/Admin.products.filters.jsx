@@ -10,12 +10,16 @@ import {
 } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { BiSearchAlt } from 'react-icons/bi'
+import { useDispatch } from 'react-redux'
+import { getFilteredShopProducts } from '../../../../redux/admin/admin.actions'
 
 const AdminProductsFilter = ({ toggleVisiblity }) => {
+  const dispatch = useDispatch()
   const [input, setInput] = useState('')
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(input)
+    if (input === '') return
+    dispatch(getFilteredShopProducts(input))
     setInput('')
   }
   return (
@@ -50,9 +54,14 @@ const AdminProductsFilter = ({ toggleVisiblity }) => {
           <Text w="full" pl="5px" fontWeight={600}>
             Filter by Rating
           </Text>
-          <Select placeholder="Select option">
-            <option value="option1">asc</option>
-            <option value="option2">desc</option>
+          <Select
+            onChange={({ target: { value } }) =>
+              dispatch(getFilteredShopProducts('', 1, value))
+            }
+            placeholder="Select option"
+          >
+            <option value="asc">asc</option>
+            <option value="desc">desc</option>
           </Select>
         </VStack>
         {/* Filter by Category */}
@@ -60,15 +69,20 @@ const AdminProductsFilter = ({ toggleVisiblity }) => {
           <Text w="full" pl="5px" fontWeight={600}>
             Filter by Category
           </Text>
-          <Select placeholder="Select option">
+          <Select
+            onChange={({ target: { value } }) =>
+              dispatch(getFilteredShopProducts('', 1, '', value))
+            }
+            placeholder="Select option"
+          >
             <option value="protein">Protein</option>
             <option value="bcaa">BCAA</option>
-            <option value="bcaa">Vitamins</option>
-            <option value="bcaa">Gainers</option>
-            <option value="bcaa">Omega-3</option>
-            <option value="bcaa">Peanut-butter</option>
-            <option value="bcaa">Plant Protein</option>
-            <option value="bcaa">Recently added</option>
+            <option value="vitamins">Vitamins</option>
+            <option value="massgainers">Gainers</option>
+            <option value="omega3">Omega-3</option>
+            <option value="peanutButter">Peanut-butter</option>
+            <option value="plantprotein">Plant Protein</option>
+            <option value="recentlyadded">Recently added</option>
           </Select>
         </VStack>
         {/* Filter by Quantity */}
@@ -76,9 +90,14 @@ const AdminProductsFilter = ({ toggleVisiblity }) => {
           <Text w="full" pl="5px" fontWeight={600}>
             Filter by Quantity
           </Text>
-          <Select placeholder="Select option">
-            <option value="option1">asc</option>
-            <option value="option2">desc</option>
+          <Select
+            onChange={({ target: { value } }) =>
+              dispatch(getFilteredShopProducts('', 1, '','', value))
+            }
+            placeholder="Select option"
+          >
+            <option value="asc">asc</option>
+            <option value="desc">desc</option>
           </Select>
         </VStack>
       </HStack>

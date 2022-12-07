@@ -9,11 +9,31 @@ import {
   Th,
   Thead,
   Tr,
+  useToast,
 } from '@chakra-ui/react'
 import { FcViewDetails } from 'react-icons/fc'
-import { BiEdit } from 'react-icons/bi'
+import { useDispatch } from 'react-redux'
+import {
+  deleteShopProduct,
+  showSingleProduct,
+} from '../../../../redux/admin/admin.actions'
+import AlertDialogBox from '../../AlertDialog'
+import UpdateShopProduct from './UpdateShopProductAdmin'
 
-const ProductsTableAdmin = () => {
+const ProductsTableAdmin = ({ filteredProducts, toggleInfoModelVisiblity }) => {
+  const dispatch = useDispatch()
+  const toast = useToast()
+  const handleDeleteProduct = (productId) => {
+    dispatch(deleteShopProduct(productId))
+    toast({
+      position: 'top',
+      title: 'Product delete update',
+      description: 'Product has been deleted!',
+      status: 'success',
+      duration: 4000,
+      isClosable: true,
+    })
+  }
   return (
     <TableContainer w="full" maxH="500px" overflowY="scroll">
       <Text textAlign="center" fontSize={20} fontWeight={600} w="full">
@@ -31,21 +51,37 @@ const ProductsTableAdmin = () => {
           </Tr>
         </Thead>
         <Tbody>
-          {new Array(15).fill(0).map((ele, ind) => (
-            <Tr key={ind}>
-              <Td>5454544545</Td>
-              <Td maxW="200px" whiteSpace="break-spaces">
-                Optimum Nutrition (ON) Gold Standard 100 Whey Protein Powder
-              </Td>
-              <Td>Protein</Td>
-              <Td>24</Td>
-              <Td>20</Td>
-              <Td fontSize={20}>
-                <Icon cursor='pointer' as={FcViewDetails} />
-                <Icon cursor='pointer' ml="10px" as={BiEdit} />
-              </Td>
-            </Tr>
-          ))}
+          {filteredProducts &&
+            filteredProducts.map((ele, ind) => (
+              <Tr key={ind}>
+                <Td>{ele._id}</Td>
+                <Td maxW="200px" whiteSpace="break-spaces">
+                  {ele.name}
+                </Td>
+                <Td>{ele.category}</Td>
+                <Td>{ele['widget-lite-count']}</Td>
+                <Td>{ele.Quantity}</Td>
+                <Td fontSize={20}>
+                  <AlertDialogBox
+                    title="Want to delete Product?"
+                    text="Are you sure you want to delete this product? it will be deleted
+            permanently."
+                    yesFunction={() => {
+                      handleDeleteProduct(ele._id)
+                    }}
+                  />
+                  <Icon
+                    cursor="pointer"
+                    onClick={() => {
+                      toggleInfoModelVisiblity()
+                      dispatch(showSingleProduct(ele))
+                    }}
+                    as={FcViewDetails}
+                  />
+                  <UpdateShopProduct product={ele} />
+                </Td>
+              </Tr>
+            ))}
         </Tbody>
       </Table>
     </TableContainer>

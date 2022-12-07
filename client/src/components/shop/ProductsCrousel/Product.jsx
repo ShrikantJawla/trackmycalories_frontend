@@ -48,10 +48,11 @@ const Product = ({ product }) => {
           <Box as="p">
             From:{' '}
             <Box as="span" textDecoration="line-through" color="gray">
-              {product && product['woocommerce-Price-amount']}{' '}
+              ₹{product && product['woocommerce-Price-amount']}
             </Box>
             <Box as="span" fontWeight="bold">
-              {product && product['woocommerce-Price-amount 2']}
+              {' '}
+              ₹{product && product['woocommerce-Price-amount 2']}
             </Box>
           </Box>
         </VStack>
