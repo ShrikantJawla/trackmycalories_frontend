@@ -91,7 +91,6 @@ const routes = [
   },
 ]
 const AllRoutes = () => {
-  const { isAdmin } = useSelector((state) => state.auth)
   return (
     <Routes>
       {routes.map(({ path, element }, ind) => (

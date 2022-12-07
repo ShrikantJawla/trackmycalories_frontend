@@ -2,6 +2,10 @@
 import axios from 'axios';
 import { ADD_ITEMS_TO_CART, ERROR, GET_ALL_CART_PRODUCTS, LOADING, SUCCESS } from './cart.types';
 
+const baseLocalHostURL = process.env.REACT_APP_BASE_URL
+const baseServerURL = process.env.REACT_APP_SERVER_BASE_URL
+
+
 const loading = () => ({ type: LOADING });
 const success = () => ({ type: SUCCESS });
 const error = (err) => ({ type: ERROR, payload: err });
@@ -10,7 +14,7 @@ const error = (err) => ({ type: ERROR, payload: err });
 export const getAllCartItems = () => async (dispatch) => {
     dispatch(loading());
     try {
-        const { data } = await axios.get('http://localhost:8080/shop/cart', {
+        const { data } = await axios.get(`${baseServerURL}/shop/cart`, {
             headers: {
                 token: localStorage.getItem('checkmycalorieToken')
             }
@@ -27,7 +31,7 @@ export const addItemToCart = (body) => async (dispatch) => {
     console.log(body);
     dispatch(loading());
     try {
-        await axios.post('http://localhost:8080/shop/cart/add-item', body, {
+        await axios.post(`${baseServerURL}/shop/cart/add-item`, body, {
             headers: {
                 token: localStorage.getItem('checkmycalorieToken')
             }
@@ -43,7 +47,7 @@ export const updateQuantityInCart = (cartItemId, typeOfQuery) => async (dispatch
     console.log(cartItemId, typeOfQuery)
     dispatch(loading());
     try {
-        await axios.patch(`http://localhost:8080/shop/cart/update-quantity/${cartItemId}?q=${typeOfQuery}`, {}, {
+        await axios.patch(`${baseServerURL}/shop/cart/update-quantity/${cartItemId}?q=${typeOfQuery}`, {}, {
             headers: {
                 token: localStorage.getItem('checkmycalorieToken')
             }
@@ -58,7 +62,7 @@ export const updateQuantityInCart = (cartItemId, typeOfQuery) => async (dispatch
 export const deleteProductFromCart = (cartItemId) => async (dispatch) => {
     dispatch(loading());
     try {
-        await axios.delete(`http://localhost:8080/shop/cart/delete-product/${cartItemId}`, {
+        await axios.delete(`${baseServerURL}/shop/cart/delete-product/${cartItemId}`, {
             headers: {
                 token: localStorage.getItem('checkmycalorieToken')
             }
@@ -74,7 +78,7 @@ export const addItemInPuchaseList = (modeOfPaymentInBody) => async (dispatch) =>
     console.log(modeOfPaymentInBody);
     dispatch(loading());
     try {
-        await axios.patch(`http://localhost:8080/shop/cart/purchase`, modeOfPaymentInBody, {
+        await axios.patch(`${baseServerURL}/shop/cart/purchase`, modeOfPaymentInBody, {
             headers: {
                 token: localStorage.getItem('checkmycalorieToken')
             }

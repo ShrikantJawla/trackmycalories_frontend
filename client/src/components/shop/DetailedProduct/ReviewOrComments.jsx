@@ -206,7 +206,7 @@ const ReviewOrComments = ({ product }) => {
             <HStack justify="space-between" w="full" pr="25px">
               <HStack>
                 <Avatar
-                  src={`http://localhost:8080/user/auth/profile/${comment?.user?.img}`}
+                  src={`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_IMAGE_BASE_ROUTE}${comment?.user?.img}`}
                 />
                 <VStack>
                   <Text fontWeight={700}>Shrikant Jawla</Text>
