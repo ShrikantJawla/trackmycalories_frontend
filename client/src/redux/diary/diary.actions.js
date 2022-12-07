@@ -1,5 +1,9 @@
-import { ERROR_STATE, GET_ALL_CATEGORIES, GET_ALL_PRODUCTS, GET_FOOD_PRODUCT_LIST, LOADING_STATE,  SUCCESS_STATE } from "./diary.types";
+import { ERROR_STATE, GET_ALL_CATEGORIES, GET_ALL_PRODUCTS, GET_FOOD_PRODUCT_LIST, LOADING_STATE, SUCCESS_STATE } from "./diary.types";
 import axios from 'axios'
+
+const baseLocalHostURL = process.env.REACT_APP_BASE_URL
+const baseServerURL = process.env.REACT_APP_SERVER_BASE_URL
+
 
 export const diaryItemsLoading = () => ({ type: LOADING_STATE })
 export const diaryItemsSuccess = () => ({ type: SUCCESS_STATE })
@@ -10,7 +14,7 @@ export const getfoodProducts = (token) => async (dispatch) => {
 
     dispatch(diaryItemsLoading());
     try {
-        let res = await axios.get('http://localhost:8080/userprofile/getitems', {
+        let res = await axios.get(`${baseServerURL}/userprofile/getitems`, {
             headers: {
                 token
             }
@@ -28,7 +32,7 @@ export const getfoodProducts = (token) => async (dispatch) => {
 export const getAllProductToDisplay = (query) => async (dispatch) => {
     dispatch(diaryItemsLoading())
     try {
-        let res = await axios.get(`http://localhost:8080/foodProducts?q=${query}`);
+        let res = await axios.get(`${baseServerURL}/foodProducts?q=${query}`);
         dispatch({ type: GET_ALL_PRODUCTS, payload: res.data })
     } catch (error) {
         dispatch(diaryItemsError())
@@ -40,7 +44,7 @@ export const getAllProductToDisplay = (query) => async (dispatch) => {
 export const getAllCategories = () => async (dispatch) => {
     dispatch(diaryItemsLoading());
     try {
-        let res = await axios('http://localhost:8080/foodProducts/allcategories');
+        let res = await axios(`${baseServerURL}/foodProducts/allcategories`);
         dispatch({ type: GET_ALL_CATEGORIES, payload: res.data });
     } catch (error) {
         dispatch(diaryItemsError())
@@ -53,7 +57,7 @@ export const getAllCategories = () => async (dispatch) => {
 export const addNewProduct = (body, token) => async (dispatch) => {
     dispatch(diaryItemsLoading())
     try {
-        let res = await axios.post('http://localhost:8080/userprofile/additem', body, {
+        let res = await axios.post(`${baseServerURL}/userprofile/additem`, body, {
             headers: {
                 token
             }
@@ -69,7 +73,7 @@ export const addNewProduct = (body, token) => async (dispatch) => {
 export const deleteItem = (id, token) => async (dispatch) => {
     dispatch(diaryItemsLoading())
     try {
-        await axios.delete('http://localhost:8080/userprofile/' + id, {
+        await axios.delete(`${baseServerURL}/userprofile/` + id, {
             headers: {
                 token
             }

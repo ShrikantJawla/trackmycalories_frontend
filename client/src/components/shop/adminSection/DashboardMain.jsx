@@ -30,6 +30,7 @@ const DashboardMain = ({ orderDetails, toggleOpen }) => {
           value={orderDetails?.deleveredOrders?.length} //Array
         />
         <InformationBox
+          currency={true}
           text="Total revenue"
           bg="purple"
           icon={RiMoneyDollarCircleFill}

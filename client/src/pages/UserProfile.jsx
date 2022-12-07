@@ -82,7 +82,7 @@ const UserProfile = () => {
               boxShadow="var(--boxShadow)"
               src={
                 userInfo.img &&
-                `http://localhost:8080/user/auth/profile/${userInfo?.img}`
+                `${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_IMAGE_BASE_ROUTE}${userInfo?.img}`
               }
             />
             {/* upload image dialoge box */}
@@ -105,9 +105,9 @@ const UserProfile = () => {
             <Text fontWeight={600} fontSize={17} w="full">
               {userInfo?.occupation}
             </Text>
-            <VStack fontSize={14} w='400px' spacing='-4px'>
+            <VStack fontSize={14} w="400px" spacing="-4px">
               {['facebook', 'email', 'linkedin', 'twitter'].map((ele, ind) => (
-                <Text fontWeight={500} w='full' textAlign='left'>
+                <Text fontWeight={500} w="full" textAlign="left">
                   {userInfo.socialLinks && userInfo.socialLinks[ele]}
                 </Text>
               ))}

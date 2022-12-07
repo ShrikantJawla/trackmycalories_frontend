@@ -29,7 +29,7 @@ const ProfileSection = () => {
       <VStack spacing={0} w="full">
         <Avatar
           size="lg"
-          src={`http://localhost:8080/user/auth/profile/${userInfo?.img}`}
+          src={`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_IMAGE_BASE_ROUTE}${userInfo?.img}`}
         />
         <Text fontSize={13} fontWeight={500}>
           {userInfo.firstName && userInfo.firstName + ' ' + userInfo.lastName}

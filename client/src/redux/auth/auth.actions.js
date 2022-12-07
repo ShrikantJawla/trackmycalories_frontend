@@ -3,11 +3,13 @@ import axios from "axios"
 
 import { AUTH_SIGN_IN_ERROR, AUTH_SIGN_IN_LOADING, AUTH_SIGN_IN_SUCCESS, AUTH_SIGN_OUT, AUTH_SIGN_UP_ERROR, AUTH_SIGN_UP_LOADING, AUTH_SIGN_UP_SUCCESS, GET_USER, UPDATE_PROFILE_ERROR, UPDATE_PROFILE_SUCCESS } from "./auth.types"
 
+const baseUrl = process.env.REACT_APP_SERVER_BASE_URL
+const authBaseRoute = process.env.REACT_APP_USER_AUTH_URL
 
 export const LoginApi = (creds) => async (dispatch) => {
     dispatch({ type: AUTH_SIGN_IN_LOADING })
     try {
-        let res = await axios.post("http://localhost:8080/user/auth/login", creds)
+        let res = await axios.post(`${baseUrl}${authBaseRoute}/login`, creds)
         dispatch({
             type: AUTH_SIGN_IN_SUCCESS,
             payload: res.data
@@ -21,7 +23,7 @@ export const LoginApi = (creds) => async (dispatch) => {
 export const SignupApi = (creds) => async (dispatch) => {
     dispatch({ type: AUTH_SIGN_UP_LOADING })
     try {
-        let res = await axios.post("http://localhost:8080/user/auth/register", creds)
+        let res = await axios.post(`${baseUrl}${authBaseRoute}/register`, creds)
         dispatch({
             type: AUTH_SIGN_UP_SUCCESS,
             payload: res.data
@@ -39,7 +41,7 @@ export const LogOut = () => async (dispatch) => {
 
 export const getUser = () => async (dispatch) => {
     try {
-        let res = await axios.get('http://localhost:8080/user/auth/getuser', {
+        let res = await axios.get(`${baseUrl}${authBaseRoute}/getuser`, {
             headers: {
                 token: localStorage.getItem('checkmycalorieToken')
             }
@@ -52,7 +54,7 @@ export const getUser = () => async (dispatch) => {
 
 export const updateProfile = (body) => async (dispatch) => {
     try {
-        let res = await axios.patch('http://localhost:8080/user/auth/update-profile', body, {
+        let res = await axios.patch(`${baseUrl}${authBaseRoute}/update-profile`, body, {
             headers: {
                 token: localStorage.getItem('checkmycalorieToken')
             }
@@ -65,7 +67,7 @@ export const updateProfile = (body) => async (dispatch) => {
 }
 export const updateProfilePicture = (formData) => async (dispatch) => {
     try {
-        let res = await axios.post('http://localhost:8080/user/auth/update-avatar', formData, {
+        let res = await axios.post(`${baseUrl}${authBaseRoute}/update-avatar`, formData, {
             headers: {
                 token: localStorage.getItem('checkmycalorieToken')
             }

@@ -10,9 +10,13 @@ import {
     UPDATE_SHOP_PRODUCT
 } from './admin.types';
 
+const baseLocalHostURL = process.env.REACT_APP_BASE_URL
+const baseServerURL = process.env.REACT_APP_SERVER_BASE_URL
+
+
 export const getAllOrderRelatedData = () => async (dispatch) => {
     try {
-        let { data } = await axios.get('http://localhost:8080/admin/orders-details', {
+        let { data } = await axios.get(`${baseServerURL}/admin/orders-details`, {
             headers: {
                 token: localStorage.getItem('checkmycalorieToken')
             }
@@ -32,7 +36,7 @@ export const getAllOrderRelatedData = () => async (dispatch) => {
 
 export const getFilteredShopProducts = (q = '', page, sortByRating = '', filterByCategory = '', filterByQuantity = '') => async (dispatch) => {
     try {
-        let { data } = await axios.get(`http://localhost:8080/admin?q=${q}&page=${page}&sortByRating=${sortByRating}&filterByCategory=${filterByCategory}&filterByQuantity=${filterByQuantity}`, {
+        let { data } = await axios.get(`${baseServerURL}/admin?q=${q}&page=${page}&sortByRating=${sortByRating}&filterByCategory=${filterByCategory}&filterByQuantity=${filterByQuantity}`, {
             headers: {
                 token: localStorage.getItem('checkmycalorieToken')
             }
@@ -46,7 +50,7 @@ export const getFilteredShopProducts = (q = '', page, sortByRating = '', filterB
 
 export const addNewProduct = (body) => async (dispatch) => {
     try {
-        let { data } = await axios.post('http://localhost:8080/admin/add-newproduct', body, {
+        let { data } = await axios.post(`${baseServerURL}/admin/add-newproduct`, body, {
             headers: {
                 token: localStorage.getItem('checkmycalorieToken')
             }
@@ -60,7 +64,7 @@ export const addNewProduct = (body) => async (dispatch) => {
 
 export const filterOrders = (paymentMethod = '', monthOfOrder = '', monthOfDelevery = '', status = '', amount = '', page) => async (dispatch) => {
     try {
-        let { data } = await axios.get(`http://localhost:8080/admin/filterOrders?paymentMethod=${paymentMethod}&monthOfOrder=${monthOfOrder}&monthOfDelevery=${monthOfDelevery}&status=${status}&amount=${amount}&page=${page}`, {
+        let { data } = await axios.get(`${baseServerURL}/admin/filterOrders?paymentMethod=${paymentMethod}&monthOfOrder=${monthOfOrder}&monthOfDelevery=${monthOfDelevery}&status=${status}&amount=${amount}&page=${page}`, {
             headers: {
                 token: localStorage.getItem('checkmycalorieToken')
             }
@@ -78,7 +82,7 @@ export const showSingleProduct = (product) => (dispatch) => {
 
 export const deleteShopProduct = (productId) => async (dispatch) => {
     try {
-        await axios.delete(`http://localhost:8080/admin/delete-product/${productId}`, {
+        await axios.delete(`${baseServerURL}/admin/delete-product/${productId}`, {
             headers: {
                 token: localStorage.getItem('checkmycalorieToken')
             }
@@ -93,7 +97,7 @@ export const deleteShopProduct = (productId) => async (dispatch) => {
 
 export const updateShopProduct = (productId, body) => async (dispatch) => {
     try {
-        await axios.patch(`http://localhost:8080/admin/update-product/${productId}`, body, {
+        await axios.patch(`${baseServerURL}/admin/update-product/${productId}`, body, {
             headers: {
                 token: localStorage.getItem('checkmycalorieToken')
             }

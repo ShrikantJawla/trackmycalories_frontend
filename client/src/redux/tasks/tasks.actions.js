@@ -5,11 +5,14 @@ export const loading = () => ({ type: LOADING })
 export const success = () => ({ type: SUCCESS })
 export const error = (payload) => ({ type: ERROR, payload })
 
+const baseLocalHostURL = process.env.REACT_APP_BASE_URL
+const baseServerURL = process.env.REACT_APP_SERVER_BASE_URL
+
 
 export const getAllTasks = () => async (dispatch) => {
     dispatch(loading())
     try {
-        let res = await axios.get('http://localhost:8080/user/tasks/gettasks', {
+        let res = await axios.get(`${baseServerURL}/user/tasks/gettasks`, {
             headers: {
                 token: localStorage.getItem('checkmycalorieToken')
             }
@@ -24,7 +27,7 @@ export const getAllTasks = () => async (dispatch) => {
 export const addNewTask = (data) => async (dispatch) => {
     dispatch(loading())
     try {
-        let res = await axios.post('http://localhost:8080/user/tasks/addtask', data, {
+        let res = await axios.post(`${baseServerURL}/user/tasks/addtask`, data, {
             headers: {
                 token: localStorage.getItem('checkmycalorieToken')
             }
@@ -41,7 +44,7 @@ export const addNewTask = (data) => async (dispatch) => {
 export const getOneTask = (id) => async (dispatch) => {
     dispatch(loading())
     try {
-        let res = await axios.get('http://localhost:8080/user/tasks/gettask/' + id, {
+        let res = await axios.get(`${baseServerURL}/user/tasks/gettask/` + id, {
             headers: {
                 token: localStorage.getItem('checkmycalorieToken')
             }
@@ -54,7 +57,7 @@ export const getOneTask = (id) => async (dispatch) => {
 export const updateTask = (id, data) => async (dispatch) => {
     dispatch(loading())
     try {
-        await axios.patch(`http://localhost:8080/user/tasks/updatetask/${id}`, data, {
+        await axios.patch(`${baseServerURL}/user/tasks/updatetask/${id}`, data, {
             headers: {
                 token: localStorage.getItem('checkmycalorieToken')
             }
@@ -68,7 +71,7 @@ export const updateTask = (id, data) => async (dispatch) => {
 export const deleteTask = (id) => async (dispatch) => {
     dispatch(loading())
     try {
-        await axios.delete('http://localhost:8080/user/tasks/deletetask/' + id, {
+        await axios.delete(`${baseServerURL}/user/tasks/deletetask/` + id, {
             headers: {
                 token: localStorage.getItem('checkmycalorieToken')
             }
