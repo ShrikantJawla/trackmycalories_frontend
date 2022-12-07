@@ -41,7 +41,7 @@ const AdminOrdersListDisplay = ({ filteredOrders,toggleOpen }) => {
           {filteredOrders &&
             filteredOrders.map((ele, ind) => (
               <Tr key={uuid()}>
-                <Td>{ele.product._id}</Td>
+                <Td>{ele.product?._id}</Td>
                 <Td>{ele.modeOfPayment}</Td>
                 <Td>{ele.dateOfPurchase.slice(0, 10)}</Td>
                 <Td>{ele.dateOfDelevery.slice(0, 10)}</Td>

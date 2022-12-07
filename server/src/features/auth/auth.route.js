@@ -116,6 +116,7 @@ app.post("/login", async (req, res) => {
                         lastName: user.lastName,
                         email: user.email,
                         age: user.age,
+                        role: user.role,
                         createdAt: user.createdAt,
                     }
                 })

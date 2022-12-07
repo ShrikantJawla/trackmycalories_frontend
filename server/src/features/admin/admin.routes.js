@@ -22,6 +22,8 @@ const adminCheckMiddleware = async (req, res, next) => {
 
 
 
+
+
 const router = Router();
 router.use(adminCheckMiddleware);
 
@@ -45,7 +47,7 @@ router.get('/orders-details', async (req, res) => {
 
         // Finding total revenue
         let revenue = allItems.reduce((acc, ele) =>
-            acc + Number(ele.product["woocommerce-Price-amount 2"].replace(',', '')), 0)
+            acc + Number(ele.product["woocommerce-Price-amount 2"]), 0)
 
         let allOrdersDetails = {
             pendingOrders,
@@ -124,7 +126,7 @@ router.post('/add-newproduct', async (req, res) => {
         const existingProduct = await Products.findOne({ name });
         if (!existingProduct) {
             await Products.create({
-                onsale: `-${discountPercentage}%`,
+                onsale: -discountPercentage,
                 "attachment-woocommerce_thumbnail src": image,
                 name,
                 "widget-lite-score-detailed": '5 stars',
@@ -138,8 +140,8 @@ router.post('/add-newproduct', async (req, res) => {
                 "widget-lite-score-detailed 9": '1 stars',
                 "widget-lite-score-detailed 10": '0%',
                 "widget-lite-count": '(0)',
-                "woocommerce-Price-amount": `${totalPrice}`,
-                "woocommerce-Price-amount 2": `${afterDiscountPrice}`,
+                "woocommerce-Price-amount": +totalPrice,
+                "woocommerce-Price-amount 2": +afterDiscountPrice,
                 "category": category,
                 Quantity: quantity,
             })
@@ -186,11 +188,11 @@ router.get('/filterOrders', async (req, res) => {
         }
         if (amount) {
             if (amount === 'asc') {
-                items.sort((a, b) => +a.product["woocommerce-Price-amount 2"].replace(',', '')
-                    - Number(b.product["woocommerce-Price-amount 2"].replace(',', '')))
+                items.sort((a, b) => a.product["woocommerce-Price-amount 2"]
+                    - b.product["woocommerce-Price-amount 2"])
             } else if (amount === 'desc') {
-                items.sort((a, b) => +b.product["woocommerce-Price-amount 2"].replace(',', '')
-                    - Number(a.product["woocommerce-Price-amount 2"].replace(',', '')))
+                items.sort((a, b) => b.product["woocommerce-Price-amount 2"]
+                    - a.product["woocommerce-Price-amount 2"])
             } else {
                 return res.send('wrong query!')
             }
@@ -209,9 +211,9 @@ router.patch('/update-product/:productId', async (req, res) => {
         await Products.updateOne({ _id: productId }, {
             name,
             "attachment-woocommerce_thumbnail src": image,
-            "woocommerce-Price-amount": totalPrice,
-            "woocommerce-Price-amount 2": afterDiscountPrice,
-            onsale: `-${discountPercentage}%`,
+            "woocommerce-Price-amount": +totalPrice,
+            "woocommerce-Price-amount 2": +afterDiscountPrice,
+            onsale: -discountPercentage,
             Quantity: quantity,
             category
         })

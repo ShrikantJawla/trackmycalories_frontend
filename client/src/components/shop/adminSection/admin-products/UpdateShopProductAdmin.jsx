@@ -24,9 +24,9 @@ const UpdateShopProduct = ({ product }) => {
     name: product.name,
     image: product['attachment-woocommerce_thumbnail src'],
     quantity: product.Quantity,
-    totalPrice: product['woocommerce-Price-amount'].replace(',', ''),
-    discountPercentage: product.onsale.replace('%', ''),
-    afterDiscountPrice: product['woocommerce-Price-amount 2'].replace(',', ''),
+    totalPrice: product['woocommerce-Price-amount'],
+    discountPercentage: product.onsale,
+    afterDiscountPrice: product['woocommerce-Price-amount 2'],
     category: product.category,
   })
   const toggleVisiblity = () => setIsVisible((p) => (p = !p))

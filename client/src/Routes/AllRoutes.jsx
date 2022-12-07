@@ -15,6 +15,8 @@ import Checkout from '../pages/Shop/Checkout'
 import AdminDashboard from '../pages/Shop/adminSection/AdminDashboard'
 import AdminProducts from '../pages/Shop/adminSection/AdminProducts.page'
 import AdminOrdersCategory from '../pages/Shop/adminSection/Admin.orders.category'
+import AdminPrivateRoute from './AdminPrivateRoute'
+import { useSelector } from 'react-redux'
 
 const routes = [
   {
@@ -63,11 +65,33 @@ const routes = [
       </AuthRoute>
     ),
   },
-  { path: '/admin-home', element: <AdminDashboard /> },
-  { path: '/admin-products', element: <AdminProducts /> },
-  { path: '/categories', element: <AdminOrdersCategory /> },
+  {
+    path: '/admin-home',
+    element: (
+      <AdminPrivateRoute>
+        <AdminDashboard />
+      </AdminPrivateRoute>
+    ),
+  },
+  {
+    path: '/admin-products',
+    element: (
+      <AdminPrivateRoute>
+        <AdminProducts />
+      </AdminPrivateRoute>
+    ),
+  },
+  {
+    path: '/categories',
+    element: (
+      <AdminPrivateRoute>
+        <AdminOrdersCategory />
+      </AdminPrivateRoute>
+    ),
+  },
 ]
 const AllRoutes = () => {
+  const { isAdmin } = useSelector((state) => state.auth)
   return (
     <Routes>
       {routes.map(({ path, element }, ind) => (

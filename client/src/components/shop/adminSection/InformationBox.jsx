@@ -18,7 +18,7 @@ const InformationBox = ({ text, value, bg, icon }) => {
       <VStack w="80%">
         <Text w="full">{text}</Text>
         <Text w="full" fontWeight={700}>
-          ₹{value}
+          {value}
         </Text>
       </VStack>
       <Icon as={icon || MdPendingActions} fontSize={29} />

@@ -26,7 +26,7 @@ const QuantityOrConfirmSection = ({
 
   let savedAmount
   if (fromAmount && sellingAmount) {
-    savedAmount = +fromAmount.replace(',', '') - +sellingAmount.replace(',', '')
+    savedAmount = +fromAmount - +sellingAmount
   }
 
   const handleAddProductInCart = () => {
@@ -77,22 +77,19 @@ const QuantityOrConfirmSection = ({
         <Text w="full">
           MRP:{' '}
           <Box as="span" color="gray" textDecor="line-through">
-            {currencySimbol && currencySimbol}
-            {fromAmount && fromAmount}
+            ₹{fromAmount && fromAmount}
           </Box>
         </Text>
         <Text w="full">
           Selling Price:{' '}
           <Box as="span" color="brown" fontWeight={700} fontSize={20}>
-            {currencySimbol && currencySimbol}
-            {sellingAmount && sellingAmount}
+            ₹{sellingAmount && sellingAmount}
           </Box>
         </Text>
         <Text w="full">
           You Save:{' '}
           <Box as="span" color="gray">
-            {currencySimbol && currencySimbol}
-            {savedAmount}
+            ₹{savedAmount}
           </Box>
         </Text>
         <Text fontSize={13} w="full">
