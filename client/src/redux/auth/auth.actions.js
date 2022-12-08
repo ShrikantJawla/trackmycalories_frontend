@@ -75,6 +75,20 @@ export const updateProfile = (body) => async (dispatch) => {
         console.log(error);
     }
 }
+// export const updateProfilePicture = (formData) => async (dispatch) => {
+//     try {
+//         let res = await axios.post(`${baseUrl}${authBaseRoute}/update-avatar`, formData, {
+//             headers: {
+//                 token: localStorage.getItem('checkmycalorieToken')
+//             }
+//         })
+//         dispatch({ type: UPDATE_PROFILE_SUCCESS });
+//         dispatch(getUser());
+//     } catch (error) {
+//         dispatch({ type: UPDATE_PROFILE_ERROR });
+//         console.log(error);
+//     }
+// }
 export const updateProfilePicture = (formData) => async (dispatch) => {
     try {
         let res = await axios.post(`${baseUrl}${authBaseRoute}/update-avatar`, formData, {

@@ -10,8 +10,8 @@ const MicronutrientsBottomDisplay = () => {
   const { main, micro, vitamins, Major, Fat } = data(foodItemsInList)
 
   return (
-    <VStack w="full" >
-      <HStack w="full" justify="space-between">
+    <>
+      <HStack style={{ marginTop: '40px' }} w="full" justify="space-between" align='flex-start'>
         <VStack w="45%">
           <MicronutrientsDisplay
             headTitle="Main Nutrients"
@@ -30,7 +30,7 @@ const MicronutrientsBottomDisplay = () => {
           wid="55%"
         />
       </HStack>
-      <HStack w="full" justify="space-between">
+      <HStack w="full" justify="space-between" align='flex-start'>
         <MicronutrientsDisplay headTitle="Fat" dataArray={Fat} wid="44%" />
         <MicronutrientsDisplay
           headTitle="Vitamins"
@@ -38,7 +38,7 @@ const MicronutrientsBottomDisplay = () => {
           wid="55%"
         />
       </HStack>
-    </VStack>
+    </>
   )
 }
 
