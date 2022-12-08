@@ -11,6 +11,7 @@ import { getTotalEnergy, macroTargets } from '../assets/userProfileData'
 import ProfileUpdateForm from '../components/ProfileUpdateForm'
 import { getUser } from '../redux/auth/auth.actions'
 import UpdateProfilePicture from '../components/UpdateProfilePicture'
+import MicronutrientsBottomDisplay from '../components/MiddleSection/MicronutrientsBottomDisplay'
 
 const UserProfile = () => {
   const [isVisible, setIsVisible] = useState(false)
@@ -37,7 +38,7 @@ const UserProfile = () => {
       bg="var(--backgroundColor)"
     >
       <Sidebar location="userprofile" />
-      <VStack w="full" h="120vh" spacing={0}>
+      <VStack w="full" spacing={0}>
         <Image
           objectFit="cover"
           w="full"
@@ -80,10 +81,7 @@ const UserProfile = () => {
               borderBottom="3px solid green"
               borderLeft="3px solid orange"
               boxShadow="var(--boxShadow)"
-              src={
-                userInfo.img &&
-                `${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_IMAGE_BASE_ROUTE}${userInfo?.img}`
-              }
+              src={userInfo?.img}
             />
             {/* upload image dialoge box */}
             <UpdateProfilePicture
@@ -156,6 +154,7 @@ const UserProfile = () => {
           <Calender />
         </HStack>
       </VStack>
+      <MicronutrientsBottomDisplay />
       <ProfileUpdateForm
         isVisible={isVisible}
         toggleShowHide={toggleProfileUpdateForm}
@@ -166,7 +165,7 @@ const UserProfile = () => {
 
 export default UserProfile
 
-const WrapperBox = styled(Box)`
+const WrapperBox = styled(VStack)`
   .editIcon {
     position: absolute;
     top: -48px;

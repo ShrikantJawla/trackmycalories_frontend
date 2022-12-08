@@ -3,7 +3,6 @@ import React from 'react'
 import CaloriesDisplayer from './CaloryProcessbars/CaloriesDisplayer'
 import LineChart from './Charts/LineChart'
 import SomeMacroNutrients from './MacronutrientsDisplay/SomeMacroNutrients'
-import MicronutrientsBottomDisplay from './MicronutrientsBottomDisplay'
 import DisplayProducts from './ProductsDisplay/DisplayProducts'
 import { useSelector } from 'react-redux'
 import { getTotalEnergy, macroTargets } from '../../assets/userProfileData.js'
@@ -51,7 +50,7 @@ const MiddleSectionContainer = () => {
         </VStack>
         <DisplayProducts />
       </HStack>
-      <MicronutrientsBottomDisplay />
+      
     </VStack>
   )
 }

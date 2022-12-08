@@ -3,6 +3,7 @@ const Users = require('./auth.model')
 const path = require('path');
 const fs = require('fs');
 const multer = require('multer');
+const cloudinary = require('../../configs/cloudnaryConfig')
 
 
 const storage = multer.diskStorage({
@@ -55,12 +56,10 @@ const app = express.Router();
 app.use(errhandler)
 
 
-/* This will serve the static folder */
-app.use('/profile', express.static('./upload/Images'))
 
 /* to upload the image and delete old file from server */
 
-app.post('/update-avatar', authMiddleWare, upload.single('avatar'), async (req, res) => {
+app.post('/update-avatar', upload.single('avatar'), authMiddleWare, async (req, res) => {
     if (req.file === undefined) {
         return res.send({
             Response: 0,
@@ -69,16 +68,14 @@ app.post('/update-avatar', authMiddleWare, upload.single('avatar'), async (req, 
     }
     let img = req.file.filename;
     try {
-        let oldUser = await Users.findOne({ _id: req.userId })
-        let oldImg = oldUser.img;
-        // if (oldImg) fs.unlinkSync(`./upload/Images/${oldImg}`)
-        await Users.updateOne({ _id: req.userId }, { $set: { img } })
+        const result = await cloudinary.uploader.upload(`${req.file.destination + '/' + req.file.filename}`, {
+            folder: 'profileImages'
+        })
+        await Users.updateOne({ _id: req.userId }, { $set: { img: result.secure_url } })
         let updatedUser = await Users.findOne({ _id: req.userId })
         res.send({
             updatedUser,
-            urlSuffix: 'http://localhost:8080/user/auth/profile/<filename>'
         })
-        // http://localhost:8080/user/auth/profile/<filename>
     } catch (error) {
         res.status(401).send(error)
     }
