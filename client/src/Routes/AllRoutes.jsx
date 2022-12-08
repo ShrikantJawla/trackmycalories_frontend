@@ -82,7 +82,7 @@ const routes = [
     ),
   },
   {
-    path: '/categories',
+    path: '/admin-categories',
     element: (
       <AdminPrivateRoute>
         <AdminOrdersCategory />

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import DisplayAllProductsAdmin from '../../../components/shop/adminSection/admin-products/DisplayAllProductsAdmin'
 import DashboardSidebar from '../../../components/shop/adminSection/DashboardSidebar'
+import NavbarAdmin from '../../../components/shop/adminSection/NavbarAdmin'
 import Pagination from '../../../components/shop/categoryDisplay/Pagination'
 import { getFilteredShopProducts } from '../../../redux/admin/admin.actions'
 
@@ -35,6 +36,7 @@ const AdminProducts = () => {
 
   return (
     <Stack direction={{ base: 'column', md: 'row' }} w="full">
+      <NavbarAdmin />
       <DashboardSidebar location="adminProducts" />
       <VStack
         style={{ marginLeft: margin }}

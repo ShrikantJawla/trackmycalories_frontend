@@ -8,16 +8,17 @@ const AdminOrdersFilters = () => {
   return (
     <Grid
       templateColumns={{
-        base: 'repeat(2,1fr)',
+        base: 'repeat(1,1fr)',
         md: 'repeat(3,1fr)',
         lg: 'repeat(5,1fr)',
       }}
       w="full"
-      justify={{ base: 'center', lg: 'space-between' }}
+      justifyContent={{ base: 'center', lg: 'space-between' }}
+      alignItems="center"
     >
       {/* Filter by PaymentMethods */}
-      <GridItem>
-        <VStack w="200px">
+      <GridItem w="full">
+        <VStack>
           <Text w="full" fontSize={13} pl="5px" fontWeight={600}>
             Filter by Payment Methods
           </Text>
@@ -32,8 +33,8 @@ const AdminOrdersFilters = () => {
       </GridItem>
 
       {/* Filter Order by Month */}
-      <GridItem>
-        <VStack w="200px">
+      <GridItem w="full">
+        <VStack>
           <Text w="full" fontSize={13} pl="5px" fontWeight={600}>
             Filter Order by Month
           </Text>
@@ -47,8 +48,8 @@ const AdminOrdersFilters = () => {
       </GridItem>
 
       {/* Filter by delevery date */}
-      <GridItem>
-        <VStack w="200px">
+      <GridItem w="full">
+        <VStack>
           <Text w="full" fontSize={13} pl="5px" fontWeight={600}>
             Filter by Product delevery month
           </Text>
@@ -62,8 +63,8 @@ const AdminOrdersFilters = () => {
       </GridItem>
 
       {/* Filter by Status */}
-      <GridItem>
-        <VStack w="200px">
+      <GridItem w="full">
+        <VStack>
           <Text w="full" fontSize={13} pl="5px" fontWeight={600}>
             Filter by Status
           </Text>
@@ -81,8 +82,8 @@ const AdminOrdersFilters = () => {
       </GridItem>
 
       {/* Filter by Amount */}
-      <GridItem>
-        <VStack w="200px">
+      <GridItem w="full">
+        <VStack>
           <Text w="full" fontSize={13} pl="5px" fontWeight={600}>
             Filter by Amount
           </Text>

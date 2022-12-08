@@ -4,6 +4,7 @@ import {
   Divider,
   FormControl,
   HStack,
+  Stack,
   Input,
   NumberDecrementStepper,
   NumberIncrementStepper,
@@ -58,7 +59,7 @@ const SearchPage = () => {
         isClosable: true,
       })
     } else {
-      dispatch(addNewProduct({ product, serving: servings },token))
+      dispatch(addNewProduct({ product, serving: servings }, token))
       toast({
         position: 'top',
         title: 'Product has beed added successfully!',
@@ -72,15 +73,16 @@ const SearchPage = () => {
 
   return (
     <StyledWrapper
-      style={{ marginLeft: '6%' }}
-      w="94%"
+      w={{ lg: '94%' }}
       bg="var(--backgroundColor)"
       justify="space-between"
+      alignItems="center"
       h="100vh"
+      direction={{ base: 'column', lg: 'row' }}
     >
       <Sidebar location={'searchproducts'} />
       <VStack
-        w="50%"
+        w={{ base: 'full', lg: '50%' }}
         h="500px"
         rounded="10px"
         boxShadow="var(--boxShadow)"
@@ -138,7 +140,7 @@ const SearchPage = () => {
         </VStack>
       </VStack>
       <VStack
-        w="50%"
+        w={{ base: 'full', lg: '50%' }}
         h="500px"
         py="15px"
         bg="var(--cardBackground)"
@@ -169,7 +171,7 @@ const SearchPage = () => {
             <NumberInput
               defaultValue={1}
               bg="var(--cardBackground)"
-              rounded='10px'
+              rounded="10px"
               min={1}
               max={20}
               w="80px"
@@ -199,7 +201,11 @@ const SearchPage = () => {
 
 export default SearchPage
 
-const StyledWrapper = styled(HStack)`
+const StyledWrapper = styled(Stack)`
+  margin-left: 6%;
+  @media screen and (max-width: 1024px) {
+    margin-left: 0px;
+  }
   .products_Container {
     ::-webkit-scrollbar {
       width: 5px;

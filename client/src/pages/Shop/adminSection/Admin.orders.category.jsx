@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import DashboardSidebar from '../../../components/shop/adminSection/DashboardSidebar'
 import InfoDisplayModal from '../../../components/shop/adminSection/InfoDisplayModal'
+import NavbarAdmin from '../../../components/shop/adminSection/NavbarAdmin'
 import AdminOrdersFilters from '../../../components/shop/adminSection/orders-categories/Admin.orders.filters'
 import AdminOrdersListDisplay from '../../../components/shop/adminSection/orders-categories/Admin.OrdersList.Display'
 import Pagination from '../../../components/shop/categoryDisplay/Pagination'
@@ -36,10 +37,12 @@ const AdminOrdersCategory = () => {
   return (
     <>
       <DashboardSidebar location="adminSectionCategories" />
+      <NavbarAdmin />
       <VStack
         style={{ marginLeft: margin }}
         w={{ base: 'full', lg: '85%' }}
         p={{ base: 'auto', lg: '15px' }}
+        pt="10px"
       >
         <AdminOrdersFilters />
         <AdminOrdersListDisplay

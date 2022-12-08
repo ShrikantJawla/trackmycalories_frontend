@@ -7,9 +7,9 @@ import { Link } from 'react-router-dom'
 const Product = ({ product }) => {
   const { _id, onsale, name } = product
   return (
-    <Link to={`/product/${_id}`} style={{ width: '25%' }}>
+    <Link to={`/product/${_id}`} style={{ width: '250px' }} >
       <VStack bg="white" p="14px" position="relative" cursor="pointer" w="full">
-        <Box h="80%">
+        <Box h="80%" w='150px'>
           <Image
             h="160px"
             w="200px"

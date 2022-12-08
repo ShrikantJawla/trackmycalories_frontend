@@ -6,6 +6,16 @@ import { AUTH_SIGN_IN_ERROR, AUTH_SIGN_IN_LOADING, AUTH_SIGN_IN_SUCCESS, AUTH_SI
 const baseUrl = process.env.REACT_APP_SERVER_BASE_URL
 const authBaseRoute = process.env.REACT_APP_USER_AUTH_URL
 
+export const runServer = () => async (dispatch) => {
+    try {
+        await axios.get(baseUrl)
+        console.log('server is runnng');
+    } catch (error) {
+        console.log('Server error', error);
+    }
+}
+
+
 export const LoginApi = (creds) => async (dispatch) => {
     dispatch({ type: AUTH_SIGN_IN_LOADING })
     try {
