@@ -91,7 +91,7 @@ export const updateProfile = (body) => async (dispatch) => {
 // }
 export const updateProfilePicture = (formData) => async (dispatch) => {
     try {
-        let res = await axios.post(`${baseUrl}${authBaseRoute}/update-avatar`, formData, {
+        let res = await axios.post(`${baseUrl}/user/auth/update-avatar`, formData, {
             headers: {
                 token: localStorage.getItem('checkmycalorieToken')
             }
