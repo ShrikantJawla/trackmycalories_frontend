@@ -8,7 +8,7 @@ const AdminOrdersFilters = () => {
   return (
     <Grid
       templateColumns={{
-        base: 'repeat(1,1fr)',
+        base: 'repeat(1,96%)',
         md: 'repeat(3,1fr)',
         lg: 'repeat(5,1fr)',
       }}

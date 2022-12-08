@@ -35,10 +35,11 @@ const AdminProducts = () => {
   }, [page])
 
   return (
-    <Stack direction={{ base: 'column', md: 'row' }} w="full">
+    <>
       <NavbarAdmin />
       <DashboardSidebar location="adminProducts" />
       <VStack
+        direction={{ base: 'column', md: 'row' }}
         style={{ marginLeft: margin }}
         w={{ base: 'full', lg: '85%' }}
         p={{ base: 'auto', lg: '15px' }}
@@ -46,7 +47,7 @@ const AdminProducts = () => {
         <DisplayAllProductsAdmin filteredProducts={filteredProducts} />
         <Pagination pageNumber={page} changePage={changePage} />
       </VStack>
-    </Stack>
+    </>
   )
 }
 

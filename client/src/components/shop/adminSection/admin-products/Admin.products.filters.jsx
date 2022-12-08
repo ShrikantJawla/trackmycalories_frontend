@@ -48,7 +48,7 @@ const AdminProductsFilter = ({ toggleVisiblity }) => {
       </HStack>
       {/* Other filters */}
 
-      <HStack w="70%" justify="space-between">
+      <HStack w={{ base: 'full', lg: '70%' }} justify="space-between">
         {/* Filter by Rating */}
         <VStack w="200px">
           <Text w="full" pl="5px" fontWeight={600}>
@@ -92,7 +92,7 @@ const AdminProductsFilter = ({ toggleVisiblity }) => {
           </Text>
           <Select
             onChange={({ target: { value } }) =>
-              dispatch(getFilteredShopProducts('', 1, '','', value))
+              dispatch(getFilteredShopProducts('', 1, '', '', value))
             }
             placeholder="Select option"
           >
@@ -101,9 +101,10 @@ const AdminProductsFilter = ({ toggleVisiblity }) => {
           </Select>
         </VStack>
       </HStack>
+
       {/* Add Product */}
 
-      <HStack w="40%" justify="center">
+      <HStack w={{ lg: '40%' }} justify="center">
         <Button
           onClick={toggleVisiblity}
           variant="outline"

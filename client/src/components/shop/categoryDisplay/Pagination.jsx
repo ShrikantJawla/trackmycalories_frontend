@@ -22,6 +22,7 @@ const Pagination = ({ pageNumber, changePage, length }) => {
   return (
     <HStack w={{ base: 'full', lg: '80%' }} h="60px" justify="center">
       <Button
+        size='sm'
         onClick={() => {
           changePage(pageNumber - 1)
         }}
@@ -30,6 +31,7 @@ const Pagination = ({ pageNumber, changePage, length }) => {
       </Button>
       {pageButton(1).map((ele) => (
         <Button
+          size='sm'
           disabled={ele === pageNumber}
           onClick={() => changePage(ele)}
           key={ele * Math.random() * 1000 + Date.now()}
@@ -38,6 +40,7 @@ const Pagination = ({ pageNumber, changePage, length }) => {
         </Button>
       ))}
       <Button
+        size='sm'
         onClick={() => {
           changePage(pageNumber + 1)
         }}

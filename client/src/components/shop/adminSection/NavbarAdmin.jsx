@@ -1,12 +1,5 @@
 import React from 'react'
-import {
-  Box,
-  Button,
-  ButtonGroup,
-  HStack,
-  Spacer,
-  Text,
-} from '@chakra-ui/react'
+import { Button, ButtonGroup, HStack, Stack, Text } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 
 const NavbarAdmin = () => {
@@ -21,26 +14,32 @@ const NavbarAdmin = () => {
       display={{ base: 'flex', lg: 'none' }}
       align="center"
       px={{ base: '5px', lg: '20px' }}
+      zIndex={5}
+      justify="space-between"
     >
-      <Text fontWeight={700} color="white">
-        Hey!{' '}
-        <Box as="span" fontFamily="mono" fontSize={20}>
-          {' '}
+      <Stack direction={{ base: 'column', md: 'row' }}>
+        <Text color="white">Hey!</Text>
+        <Text fontWeight={700} color="white" fontFamily="mono" fontSize={20}>
           ADMIN
-        </Box>
-      </Text>
-      <Spacer />
-      <ButtonGroup variant="ghost" spacing={0} color="white">
+        </Text>
+      </Stack>
+      <HStack color="white" spacing={-5}>
         <Link to="/admin-home">
-          <Button fontSize={16}>Dashboard</Button>
+          <Button variant="ghost" colorScheme="blue" fontSize={14}>
+            Dashboard
+          </Button>
         </Link>
         <Link to="/admin-products">
-          <Button fontSize={16}>Products</Button>
+          <Button variant="ghost" colorScheme="blue" fontSize={14}>
+            Products
+          </Button>
         </Link>
         <Link to="/admin-categories">
-          <Button fontSize={16}>Categories</Button>
+          <Button variant="ghost" colorScheme="blue" fontSize={14}>
+            Categories
+          </Button>
         </Link>
-      </ButtonGroup>
+      </HStack>
     </HStack>
   )
 }
