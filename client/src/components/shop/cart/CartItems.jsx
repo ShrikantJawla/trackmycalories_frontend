@@ -12,9 +12,10 @@ const CartItems = ({ allCartItems }) => {
       direction={{ base: 'column', lg: 'row' }}
       bg="gray.100"
       p="10px"
+      alignItems={{ base: 'center', lg: 'flex-start' }}
     >
       <VStack
-        w="72%"
+        w={{ base: 'full', lg: '72%' }}
         bg="white"
         h="fit-content"
         px="10px"
@@ -25,7 +26,11 @@ const CartItems = ({ allCartItems }) => {
           SHOPPING CART
         </Text>
         <Divider m="5px" />
-        <VStack w="full" h="90vh" overflowY="scroll">
+        <VStack
+          w="full"
+          h={{ base: 'fit-content', lg: '90vh' }}
+          overflowY="scroll"
+        >
           {allCartItems &&
             allCartItems.map((ele) => (
               <VStack w="full" key={uuid()}>
@@ -36,8 +41,9 @@ const CartItems = ({ allCartItems }) => {
         </VStack>
       </VStack>
       <VStack
-        w="28%"
+        w={{ base: 'full', lg: '28%' }}
         bg="white"
+        alignItems="center"
         h="fit-content"
         px="10px"
         py="20px"
@@ -51,7 +57,11 @@ const CartItems = ({ allCartItems }) => {
             ₹{allCartItems && getSubTotal(allCartItems)}
           </Text>
         </HStack>
-        <Button w="full" bg="orange" onClick={() => navigate('/checkout')}>
+        <Button
+          w={{ base: 'full', md: '50%', lg: 'full' }}
+          bg="orange"
+          onClick={() => navigate('/checkout')}
+        >
           PLACE ORDER
         </Button>
       </VStack>

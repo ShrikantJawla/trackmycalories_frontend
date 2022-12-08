@@ -5,6 +5,7 @@ import DashboardMain from '../../../components/shop/adminSection/DashboardMain'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllOrderRelatedData } from '../../../redux/admin/admin.actions'
 import InfoDisplayModal from '../../../components/shop/adminSection/InfoDisplayModal'
+import NavbarAdmin from '../../../components/shop/adminSection/NavbarAdmin'
 
 const AdminDashboard = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -30,6 +31,7 @@ const AdminDashboard = () => {
 
   return (
     <Stack direction={{ base: 'column', md: 'row' }} w="full">
+      <NavbarAdmin />
       <Box>
         <DashboardSidebar location="adminHome" />
       </Box>

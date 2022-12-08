@@ -1,4 +1,4 @@
-import { Box, Button, HStack, VStack } from '@chakra-ui/react'
+import { Box, Button, HStack, Stack, VStack } from '@chakra-ui/react'
 import React, { useEffect } from 'react'
 import Sidebar from '../components/Sidebar'
 import { HiOutlineViewGridAdd } from 'react-icons/hi'
@@ -19,9 +19,8 @@ const Tasks = () => {
   }, [dispatch])
 
   return (
-    <Box
-      style={{ marginLeft: '6%' }}
-      w="94%"
+    <StyledBox
+      w={{ lg: '94%' }}
       justify="space-between"
       bg="linear-gradient(to right top, #65dfc9, #6cdbeb)"
     >
@@ -32,10 +31,10 @@ const Tasks = () => {
           Add new task
         </Button>
       </HStack>
-      <HStack justify="space-evenly">
+      <Stack direction={{ base: 'column', lg: 'row' }} justify="space-evenly">
         <StyledVStack
-          w="31%"
-          h="90vh"
+          w={{ lg: '31%' }}
+          h={{ lg: '90vh' }}
           bg="var(--glassBackground)"
           px="6px"
           py="10px"
@@ -48,8 +47,8 @@ const Tasks = () => {
               .map((ele) => <Task key={ele._id} {...ele} />)}
         </StyledVStack>
         <StyledVStack
-          w="31%"
-          h="90vh"
+          w={{ lg: '31%' }}
+          h={{ lg: '90vh' }}
           px="6px"
           py="10px"
           bg="var(--glassBackground)"
@@ -62,8 +61,8 @@ const Tasks = () => {
               .map((ele) => <Task key={ele._id} {...ele} />)}
         </StyledVStack>
         <StyledVStack
-          w="31%"
-          h="90vh"
+          w={{ lg: '31%' }}
+          h={{ lg: '90vh' }}
           px="6px"
           py="10px"
           bg="var(--glassBackground)"
@@ -75,9 +74,9 @@ const Tasks = () => {
               .filter((task) => task.status === 'completed')
               .map((ele) => <Task key={ele._id} {...ele} />)}
         </StyledVStack>
-      </HStack>
+      </Stack>
       <AddTask isVisible={isVisible} toggleVisiblity={toggleVisiblity} />
-    </Box>
+    </StyledBox>
   )
 }
 
@@ -86,5 +85,11 @@ export default Tasks
 const StyledVStack = styled(VStack)`
   ::-webkit-scrollbar {
     display: none;
+  }
+`
+const StyledBox = styled(Box)`
+  margin-left: 6%;
+  @media screen and (max-width: 1024px) {
+    margin-left: 0px;
   }
 `

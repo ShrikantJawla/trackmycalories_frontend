@@ -19,7 +19,10 @@ const app = express();
 
 
 app.get('/', async (req, res) => {
-    res.send('Enter any route')
+    res.send({
+        res: 1,
+        message: 'Server is running'
+    })
 })
 
 app.use(cors())

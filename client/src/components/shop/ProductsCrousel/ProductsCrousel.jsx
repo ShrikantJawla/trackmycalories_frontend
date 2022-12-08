@@ -7,12 +7,12 @@ import Product from './Product'
 const ProductsCrousel = ({ products }) => {
   return (
     <HStack w="full" h="376px" px="30px" py="10px" bg="white">
-      <VStack flex="0.2">
+      <VStack flex={{base:'0.1',md:"0.2"}}>
         <HStack>
           <FiTrendingUp color="red" />
 
           <Text
-            fontSize={{ base: 14, lg: 17 }}
+            fontSize={{ base: 12, lg: 17 }}
             fontWeight="bold"
             textAlign="center"
           >
@@ -20,7 +20,7 @@ const ProductsCrousel = ({ products }) => {
           </Text>
         </HStack>
         <Link to={`/products/${products && products[0].category}`}>
-          <Button variant="solid" colorScheme="blue">
+          <Button size={{base:'sm',md:'md'}} variant="solid" colorScheme="blue">
             VIEW ALL
           </Button>
         </Link>

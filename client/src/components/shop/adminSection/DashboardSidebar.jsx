@@ -8,6 +8,7 @@ import { MdSpaceDashboard, MdPersonSearch } from 'react-icons/md'
 import { FaProductHunt } from 'react-icons/fa'
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
+import { LogOut } from '../../../redux/auth/auth.actions'
 
 const links = [
   {
@@ -23,7 +24,7 @@ const links = [
     icon: <FaProductHunt className="icons" />,
   },
   {
-    to: '/categories',
+    to: '/admin-categories',
     loc: 'adminSectionCategories',
     text: 'Categories',
     icon: <BsListTask className="icons" />,
@@ -78,7 +79,12 @@ const DashboardSidebar = ({ location }) => {
           <IoIosColorPalette className="icons" color="#53d57a" fontSize={34} />
         </VStack>
         <VStack className="icon__container">
-          <AiOutlineLogout className="icons" color="#ea4b2f" fontSize={34} />
+          <AiOutlineLogout
+            onClick={() => dispatch(LogOut())}
+            className="icons"
+            color="#ea4b2f"
+            fontSize={34}
+          />
         </VStack>
       </VStack>
     </StyledVStack>

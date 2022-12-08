@@ -3,11 +3,16 @@ import { HStack, Image, Stack } from '@chakra-ui/react'
 import styled from 'styled-components'
 import Signup from '../components/Signup'
 import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { runServer } from '../redux/auth/auth.actions'
 
 const SignupPage = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const { isAuth } = useSelector((state) => state.auth)
+  React.useEffect(() => {
+    dispatch(runServer())
+  }, [])
   React.useEffect(() => {
     if (isAuth) navigate('/')
   }, [isAuth])
