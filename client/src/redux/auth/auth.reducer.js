@@ -1,5 +1,5 @@
 
-import { AUTH_SIGN_IN_ERROR, AUTH_SIGN_IN_LOADING, AUTH_SIGN_IN_SUCCESS, AUTH_SIGN_OUT, AUTH_SIGN_UP_LOADING, AUTH_SIGN_UP_SUCCESS, AUTH_SIGN_UP_ERROR, GET_USER, UPDATE_PROFILE_PICTURE, UPDATE_PROFILE_ERROR, UPDATE_PROFILE_SUCCESS } from "./auth.types";
+import { AUTH_SIGN_IN_ERROR, AUTH_SIGN_IN_LOADING, AUTH_SIGN_IN_SUCCESS, AUTH_SIGN_OUT, AUTH_SIGN_UP_LOADING, AUTH_SIGN_UP_SUCCESS, AUTH_SIGN_UP_ERROR, GET_USER, UPDATE_PROFILE_PICTURE, UPDATE_PROFILE_ERROR, UPDATE_PROFILE_SUCCESS, GET_ALL_USERS } from "./auth.types";
 
 const userToken = localStorage.getItem('checkmycalorieToken') || ''
 const userRole = localStorage.getItem('checkMyCalorieRole') || ''
@@ -13,6 +13,7 @@ export const authInitalState = {
   isAuth: userToken === '' ? false : true,
   isAdmin: userRole === 'admin' ? true : false,
   userInfo: {},
+  allUsers: [],
 };
 
 export const authReducer = (state = authInitalState, { type, payload }) => {
@@ -85,6 +86,11 @@ export const authReducer = (state = authInitalState, { type, payload }) => {
         userInfo: payload
       }
     }
+    case GET_ALL_USERS:
+      return {
+        ...state,
+        allUsers: payload
+      }
     case UPDATE_PROFILE_ERROR: {
       return {
         ...state,

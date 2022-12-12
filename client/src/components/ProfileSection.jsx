@@ -1,11 +1,17 @@
-import { Avatar, HStack, Text, VStack } from '@chakra-ui/react'
-import React from 'react'
+import { Avatar, HStack, Icon, Text, VStack } from '@chakra-ui/react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { BiEditAlt } from 'react-icons/bi'
+import { IoNotificationsOutline } from 'react-icons/io5'
 import { Link } from 'react-router-dom'
+import UsersListsDialog from './Feeds/rightSidebar/UsersListsDialog'
 
 const ProfileSection = () => {
+  const [isVisible, setIsVisible] = useState(false)
   const { userInfo } = useSelector((state) => state.auth)
+
+  const toggleVisiblity = () => setIsVisible((p) => (p = !p))
+
   return (
     <VStack
       w="full"
@@ -18,19 +24,27 @@ const ProfileSection = () => {
       fontFamily={`'Poppins', sans-serif`}
       boxShadow="var(--boxShadow)"
     >
+      {/* Profile Heading */}
       <HStack w="full" justifyContent="space-between">
-        <Text fontSize={17} fontWeight="600" color="#3f3d3d">
-          My Profile
-        </Text>
+        <HStack>
+          <Text fontSize={17} fontWeight="600" color="#3f3d3d">
+            My Profile
+          </Text>
+          <UsersListsDialog
+            toggleVisiblity={toggleVisiblity}
+            isVisible={isVisible}
+            title="Pending connect requests"
+            users={userInfo.connectReqReceivedPending}
+            type="connectionRequest"
+            displayIconOrtext={IoNotificationsOutline}
+          />
+        </HStack>
         <Link to="/userprofile">
           <BiEditAlt cursor="pointer" />
         </Link>
       </HStack>
       <VStack spacing={0} w="full">
-        <Avatar
-          size="lg"
-          src={userInfo?.img}
-        />
+        <Avatar size="lg" src={userInfo?.img} />
         <Text fontSize={13} fontWeight={500}>
           {userInfo.firstName && userInfo.firstName + ' ' + userInfo.lastName}
         </Text>

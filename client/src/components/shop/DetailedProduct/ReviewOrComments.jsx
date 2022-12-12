@@ -205,9 +205,7 @@ const ReviewOrComments = ({ product }) => {
           <VStack key={uuid()} w="full" px="70px" py="10px" spacing={4}>
             <HStack justify="space-between" w="full" pr="25px">
               <HStack>
-                <Avatar
-                  src={`${process.env.REACT_APP_SERVER_BASE_URL}${process.env.REACT_APP_IMAGE_BASE_ROUTE}${comment?.user?.img}`}
-                />
+                <Avatar src={comment?.user?.img} />
                 <VStack>
                   <Text fontWeight={700}>Shrikant Jawla</Text>
                   <Box w="full" display="flex" mt="2" alignItems="center">

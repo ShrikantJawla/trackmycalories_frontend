@@ -17,6 +17,7 @@ import AdminProducts from '../pages/Shop/adminSection/AdminProducts.page'
 import AdminOrdersCategory from '../pages/Shop/adminSection/Admin.orders.category'
 import AdminPrivateRoute from './AdminPrivateRoute'
 import { useSelector } from 'react-redux'
+import Feeds from '../pages/Feeds/Feeds'
 
 const routes = [
   {
@@ -41,6 +42,14 @@ const routes = [
     element: (
       <AuthRoute>
         <UserProfile />
+      </AuthRoute>
+    ),
+  },
+  {
+    path: '/feeds',
+    element: (
+      <AuthRoute>
+        <Feeds />
       </AuthRoute>
     ),
   },

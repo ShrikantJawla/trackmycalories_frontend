@@ -24,7 +24,27 @@ const authSchema = new mongoose.Schema({
         type: String,
         enum: ["admin", "user"],
         default: "user",
-    }
+    },
+    followed: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
+    }],
+    following: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
+    }],
+    connected: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
+    }],
+    connectReqSentPending: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
+    }],
+    connectReqReceivedPending: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
+    }],
 },
     { timestamps: true }
 )
