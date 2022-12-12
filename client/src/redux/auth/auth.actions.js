@@ -1,9 +1,13 @@
 
 import axios from "axios"
 
-import { AUTH_SIGN_IN_ERROR, AUTH_SIGN_IN_LOADING, AUTH_SIGN_IN_SUCCESS, AUTH_SIGN_OUT, AUTH_SIGN_UP_ERROR, AUTH_SIGN_UP_LOADING, AUTH_SIGN_UP_SUCCESS, GET_USER, UPDATE_PROFILE_ERROR, UPDATE_PROFILE_SUCCESS } from "./auth.types"
+import { AUTH_SIGN_IN_ERROR, AUTH_SIGN_IN_LOADING, AUTH_SIGN_IN_SUCCESS, AUTH_SIGN_OUT, AUTH_SIGN_UP_ERROR, AUTH_SIGN_UP_LOADING, AUTH_SIGN_UP_SUCCESS, GET_ALL_USERS, GET_USER, UPDATE_PROFILE_ERROR, UPDATE_PROFILE_SUCCESS } from "./auth.types"
 
-const baseUrl = process.env.REACT_APP_SERVER_BASE_URL
+const server_url = process.env.REACT_APP_SERVER_BASE_URL
+const localhost_url = 'http://localhost:8080'
+
+
+const baseUrl = localhost_url
 const authBaseRoute = process.env.REACT_APP_USER_AUTH_URL
 
 export const runServer = () => async (dispatch) => {
@@ -62,6 +66,17 @@ export const getUser = () => async (dispatch) => {
     }
 }
 
+export const getAllUsers = (page) => async (dispatch) => {
+    try {
+        const { data } = await axios.get(`${baseUrl}/user/auth/getAllUsers?page=${page}`)
+        dispatch({ type: GET_ALL_USERS, payload: data })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+
 export const updateProfile = (body) => async (dispatch) => {
     try {
         let res = await axios.patch(`${baseUrl}${authBaseRoute}/update-profile`, body, {
@@ -75,20 +90,7 @@ export const updateProfile = (body) => async (dispatch) => {
         console.log(error);
     }
 }
-// export const updateProfilePicture = (formData) => async (dispatch) => {
-//     try {
-//         let res = await axios.post(`${baseUrl}${authBaseRoute}/update-avatar`, formData, {
-//             headers: {
-//                 token: localStorage.getItem('checkmycalorieToken')
-//             }
-//         })
-//         dispatch({ type: UPDATE_PROFILE_SUCCESS });
-//         dispatch(getUser());
-//     } catch (error) {
-//         dispatch({ type: UPDATE_PROFILE_ERROR });
-//         console.log(error);
-//     }
-// }
+
 export const updateProfilePicture = (formData) => async (dispatch) => {
     try {
         let res = await axios.post(`${baseUrl}/user/auth/update-avatar`, formData, {

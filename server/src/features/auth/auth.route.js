@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const multer = require('multer');
 const cloudinary = require('../../configs/cloudnaryConfig')
+const { authMiddleWare } = require('../../middlewares/authMiddleware')
 
 
 const storage = multer.diskStorage({
@@ -27,26 +28,6 @@ const upload = multer({
 const errhandler = (err, req, res, next) => {
     if (err instanceof multer.MulterError) {
         res.send(err.message)
-    }
-}
-
-const authMiddleWare = async (req, res, next) => {
-    if (!req.headers.token) return res.send({ error: "token is required!" })
-    const [email, userId, password] = req.headers.token.split('_#_');
-    try {
-        let user = await Users.findOne({ email });
-        if (user) {
-            if (user.password === password) {
-                req.userId = userId;
-                next();
-            } else {
-                res.status(401).send({ error: "Not authorised to perform this action!" });
-            }
-        } else {
-            res.status(404).send({ error: 'User with is email:' + email + 'not exist!' });
-        }
-    } catch (error) {
-        res.status(401).send(error)
     }
 }
 
@@ -86,7 +67,7 @@ app.post('/update-avatar', upload.single('avatar'), authMiddleWare, async (req, 
 app.get('/getuser', async (req, res) => {
     const [email, userId, password] = req.headers.token.split('_#_')
     try {
-        const existingUser = await Users.findOne({ email: email }, { password: 0 });
+        const existingUser = await Users.findOne({ email: email, password }, { password: 0 }).populate(['following', 'followed', 'connected', 'connectReqSentPending', 'connectReqReceivedPending']);
         if (existingUser) {
             res.send(existingUser)
         } else {
@@ -96,6 +77,17 @@ app.get('/getuser', async (req, res) => {
         res.status(401).send(error)
     }
 })
+
+app.get('/getAllUsers', async (req, res) => {
+    const { page = 1, limit = 10 } = req.query;
+    try {
+        const allUsers = await Users.find({}).populate(['following', 'followed', 'connected', 'connectReqSentPending', 'connectReqReceivedPending']).limit(limit).skip((page - 1) * limit)
+        res.send(allUsers)
+    } catch (error) {
+        console.log(error);
+    }
+})
+
 
 
 app.post("/login", async (req, res) => {

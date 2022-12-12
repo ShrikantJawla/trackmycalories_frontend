@@ -6,6 +6,7 @@ import { BsSearch, BsListTask } from 'react-icons/bs'
 import { CgProfile } from 'react-icons/cg'
 import { BiShoppingBag } from 'react-icons/bi'
 import { IoIosColorPalette } from 'react-icons/io'
+import { TfiComments } from 'react-icons/tfi'
 import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 import { LogOut } from '../redux/auth/auth.actions'
@@ -22,6 +23,11 @@ const links = [
     icon: <BsSearch className="icons" />,
   },
   { to: '/tasks', loc: 'tasks', icon: <BsListTask className="icons" /> },
+  {
+    to: '/feeds',
+    loc: 'users-feeds',
+    icon: <TfiComments className="icons" />,
+  },
   {
     to: '/userprofile',
     loc: 'userprofile',

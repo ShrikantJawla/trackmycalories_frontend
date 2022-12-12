@@ -10,4 +10,5 @@ export const UPDATE_PROFILE = "auth/updateProfile";
 export const UPDATE_PROFILE_PICTURE = "auth/UPDATE_PROFILE_PICTURE";
 export const UPDATE_PROFILE_ERROR = "auth/UPDATE_PROFILE_ERROR";
 export const UPDATE_PROFILE_SUCCESS = "auth/UPDATE_PROFILE_SUCCESS";
+export const GET_ALL_USERS = 'AUTH/GET_ALL_USERS'
 

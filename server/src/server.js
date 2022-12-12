@@ -12,6 +12,8 @@ const shopproductsRoute = require('./features/shopProducts/shopProducts.route')
 const reviewsRoute = require('./features/reviews/reviews.routes')
 const cartRoute = require('./features/cart/cart.routes')
 const adminRoute = require('./features/admin/admin.routes')
+const followAndConnectRoute = require('./features/connect&follow/followAndConnect.routes')
+const messagesRoute = require('./features/messages/messages.routes')
 
 
 
@@ -35,16 +37,10 @@ app.use('/shop/products', shopproductsRoute)
 app.use('/shop/product/reviews', reviewsRoute)
 app.use('/shop/cart', cartRoute)
 app.use('/admin', adminRoute)
+app.use('/follow-connect', followAndConnectRoute)
+app.use('/messages', messagesRoute)
 
-// app.use(express.static(path.join(__dirname, "./client/build")));
-// app.get("*", function (_, res) {
-//     res.sendFile(
-//         path.join(__dirname, "./client/build/index.html"),
-//         function (err) {
-//             res.status(500).send(err);
-//         }
-//     );
-// });
+
 
 
 app.listen(port, async () => {
