@@ -6,7 +6,7 @@ const server_url = process.env.REACT_APP_SERVER_BASE_URL
 const localhost_url = 'http://localhost:8080'
 
 
-const baseUrl = localhost_url
+const baseUrl = server_url
 
 
 export const makeFollowRequest = (body) => async (dispatch) => {
