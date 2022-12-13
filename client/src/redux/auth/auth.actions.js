@@ -7,7 +7,7 @@ const server_url = process.env.REACT_APP_SERVER_BASE_URL
 const localhost_url = 'http://localhost:8080'
 
 
-const baseUrl = localhost_url
+const baseUrl = server_url
 const authBaseRoute = process.env.REACT_APP_USER_AUTH_URL
 
 export const runServer = () => async (dispatch) => {
