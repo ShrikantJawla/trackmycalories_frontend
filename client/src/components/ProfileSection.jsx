@@ -53,19 +53,19 @@ const ProfileSection = () => {
         <VStack spacing={0}>
           <Text fontSize={9}>Height</Text>
           <Text fontSize={13} fontWeight="bold">
-            {userInfo?.measurement?.height}
+            {userInfo?.measurement?.height} cm
           </Text>
         </VStack>
         <VStack spacing={0}>
           <Text fontSize={9}>Weight</Text>
           <Text fontSize={13} fontWeight="bold">
-            {userInfo?.measurement?.weight}
+            {userInfo?.measurement?.weight} kg
           </Text>
         </VStack>
         <VStack spacing={0}>
           <Text fontSize={9}>Age</Text>
           <Text fontSize={13} fontWeight="bold">
-            {userInfo?.measurement?.age}
+            {userInfo?.measurement?.age} years
           </Text>
         </VStack>
       </HStack>

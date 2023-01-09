@@ -4,6 +4,7 @@ import axios from "axios"
 import { AUTH_SIGN_IN_ERROR, AUTH_SIGN_IN_LOADING, AUTH_SIGN_IN_SUCCESS, AUTH_SIGN_OUT, AUTH_SIGN_UP_ERROR, AUTH_SIGN_UP_LOADING, AUTH_SIGN_UP_SUCCESS, GET_ALL_USERS, GET_USER, UPDATE_PROFILE_ERROR, UPDATE_PROFILE_SUCCESS } from "./auth.types"
 
 const server_url = process.env.REACT_APP_SERVER_BASE_URL
+// const server_url = 'https://lazy-cyan-camel-sari.cyclic.app/'
 const localhost_url = 'http://localhost:8080'
 
 

@@ -21,7 +21,8 @@ function Signup() {
   const { signupError } = useSelector((store) => store.auth)
   const navigate = useNavigate()
 
-  const handleSignupSubmit = () => {
+  const handleSignupSubmit = (e) => {
+    e.preventDefault()
     if (
       signupCreds.firstName === '' ||
       signupCreds.email === '' ||
@@ -58,7 +59,13 @@ function Signup() {
         </Text>
       </VStack>
       <Divider />
-      <VStack w="full" spacing="25px" style={{ marginTop: '40px' }}>
+      <VStack
+        w="full"
+        spacing="25px"
+        style={{ marginTop: '40px' }}
+        as="form"
+        onSubmit={handleSignupSubmit}
+      >
         <HStack w="full">
           <FormControl>
             <Input
@@ -138,12 +145,12 @@ function Signup() {
           />
         </FormControl>
         <Button
-          onClick={handleSignupSubmit}
           w="120px"
           fontSize={19}
           fontWeight="600"
           variant="solid"
           colorScheme="whatsapp"
+          type="submit"
         >
           Signup
         </Button>

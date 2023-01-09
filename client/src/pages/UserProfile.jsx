@@ -115,19 +115,19 @@ const UserProfile = () => {
             <VStack spacing={0}>
               <Text fontSize={12}>Height</Text>
               <Text fontSize={20} fontWeight="bold">
-                {userInfo?.measurement?.height}
+                {userInfo?.measurement?.height} cm
               </Text>
             </VStack>
             <VStack spacing={0}>
               <Text fontSize={12}>Weight</Text>
               <Text fontSize={20} color="red" fontWeight="bold">
-                {userInfo?.measurement?.weight}
+                {userInfo?.measurement?.weight} kg
               </Text>
             </VStack>
             <VStack spacing={0}>
               <Text fontSize={12}>Age</Text>
               <Text fontSize={20} fontWeight="bold">
-                {userInfo?.measurement?.age}
+                {userInfo?.measurement?.age} years
               </Text>
             </VStack>
           </HStack>

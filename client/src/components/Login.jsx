@@ -18,7 +18,8 @@ function Login() {
   const toast = useToast()
   const dispatch = useDispatch()
 
-  const handleLoginSubmit = () => {
+  const handleLoginSubmit = (e) => {
+    e.preventDefault()
     if (!loginCreds.email || !loginCreds.password) {
       toast({
         position: 'top',
@@ -42,7 +43,13 @@ function Login() {
         Log in
       </Text>
       <Divider />
-      <VStack w="full" spacing="30px" style={{ marginTop: '40px' }}>
+      <VStack
+        w="full"
+        spacing="30px"
+        style={{ marginTop: '40px' }}
+        as="form"
+        onSubmit={handleLoginSubmit}
+      >
         <FormControl>
           <Input
             border="none"
@@ -75,13 +82,12 @@ function Login() {
           />
         </FormControl>
         <Button
-          onClick={handleLoginSubmit}
           w="120px"
           fontSize={19}
           fontWeight="600"
-          type="submit"
           variant="solid"
           colorScheme="whatsapp"
+          type="submit"
         >
           Login
         </Button>
