@@ -1,0 +1,11 @@
+export const LOADING = 'FEEDS/LOADING';
+export const SUCCESS = 'FEEDS/SUCCESS';
+export const ERROR = 'FEEDS/ERROR';
+export const GET_ALL_FEEDS = 'FEEDS/GET_ALL_FEEDS';
+export const GET_SINGLE_FEED = 'FEEDS/GET_SINGLE_FEED';
+export const MAKE_A_NEW_POST = 'FEEDS/MAKE_A_NEW_POST';
+export const DELETE_A_POST = 'FEEDS/DELETE_A_POST';
+export const EDIT_A_POST = 'FEEDS/EDIT_A_POST';
+export const LIKE_POST = 'FEEDS/LIKE_POST';
+export const ADD_COMMENT = 'FEEDS/ADD_COMMENT';
+export const ADD_REPLY = 'FEEDS/ADD_REPLY';

@@ -7,7 +7,7 @@ import { shopReducer } from './shopProducts/shop.reducer';
 import { cartReducer } from './cart/cart.reducer';
 import { adminReducer } from './admin/admin.reducer';
 import { connectAndFollowReducer } from './connectAndFollow/connectAndFollow.reducer';
-
+import { feedReducer } from './feeds/feeds.reducer';
 
 const createComposer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -19,6 +19,7 @@ const rootReducer = combineReducers({
     cart: cartReducer,
     admin: adminReducer,
     connectAndFollow: connectAndFollowReducer,
+    feeds: feedReducer
 })
 
 export const store = createStore(rootReducer, createComposer(applyMiddleware(thunk)))
