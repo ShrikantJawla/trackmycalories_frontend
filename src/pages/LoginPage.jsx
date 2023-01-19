@@ -28,7 +28,8 @@ const LoginPage = () => {
         right={0}
         left={0}
         className="bg_img"
-        src="https://images.pexels.com/photos/1640770/pexels-photo-1640770.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+        style={{ objectFit: 'cover' }}
+        src="/image2.jpg"
       />
       <Stack
         direction={{ base: 'column', lg: 'row' }}

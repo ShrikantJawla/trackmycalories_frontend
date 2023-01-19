@@ -2,9 +2,9 @@ import axios from "axios";
 import { getUser } from "../auth/auth.actions";
 import { FOLLOW_REQ, UNFOLLOW_REQ } from "./connectAndFollow.types";
 
-// const server_url = process.env.REACT_APP_SERVER_BASE_URL
-const server_url = 'https://lazy-cyan-camel-sari.cyclic.app/'
-const localhost_url = 'http://localhost:8080'
+
+const server_url = process.env.REACT_APP_BASE_URL
+
 
 
 const baseUrl = server_url

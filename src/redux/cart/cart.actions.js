@@ -2,9 +2,7 @@
 import axios from 'axios';
 import { ADD_ITEMS_TO_CART, ERROR, GET_ALL_CART_PRODUCTS, LOADING, SUCCESS } from './cart.types';
 
-const baseLocalHostURL = process.env.REACT_APP_BASE_URL
-// const baseServerURL = process.env.REACT_APP_SERVER_BASE_URL
-const baseServerURL = 'https://lazy-cyan-camel-sari.cyclic.app/'
+const baseServerURL = process.env.REACT_APP_BASE_URL
 
 
 const loading = () => ({ type: LOADING });

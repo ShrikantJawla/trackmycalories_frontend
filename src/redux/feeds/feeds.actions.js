@@ -1,9 +1,9 @@
 import * as feedTypes from './feeds.types'
 import axios from 'axios';
 
-const localHost = 'http://localhost:8080'
 
-const baseUrl = localHost;
+const baseUrl = process.env.REACT_APP_BASE_URL;
+const server_url2 = process.env.REACT_APP_BASE_URL2
 
 
 export const loading = () => ({ type: feedTypes.LOADING })
@@ -44,7 +44,7 @@ export const getSingleFeed = (id) => async (dispatch) => {
 export const makeAPost = (formData) => async (dispatch) => {
     try {
         dispatch(loading());
-        await axios.post(`${baseUrl}/feeds/postFeed`, formData, {
+        await axios.post(`${server_url2}/feeds/postFeed`, formData, {
             headers: {
                 token: localStorage.getItem('checkmycalorieToken')
             }

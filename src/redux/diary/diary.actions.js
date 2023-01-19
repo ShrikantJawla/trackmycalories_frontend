@@ -1,9 +1,8 @@
 import { ERROR_STATE, GET_ALL_CATEGORIES, GET_ALL_PRODUCTS, GET_FOOD_PRODUCT_LIST, LOADING_STATE, SUCCESS_STATE } from "./diary.types";
 import axios from 'axios'
 
-const baseLocalHostURL = process.env.REACT_APP_BASE_URL
-// const baseServerURL = process.env.REACT_APP_SERVER_BASE_URL
-const baseServerURL = 'https://lazy-cyan-camel-sari.cyclic.app/'
+
+const baseServerURL = process.env.REACT_APP_BASE_URL
 
 
 export const diaryItemsLoading = () => ({ type: LOADING_STATE })

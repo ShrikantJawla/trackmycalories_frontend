@@ -10,9 +10,7 @@ import {
     UPDATE_SHOP_PRODUCT
 } from './admin.types';
 
-const baseLocalHostURL = process.env.REACT_APP_BASE_URL
-// const baseServerURL = process.env.REACT_APP_SERVER_BASE_URL
-const baseServerURL = 'https://lazy-cyan-camel-sari.cyclic.app/'
+const baseServerURL = process.env.REACT_APP_BASE_URL
 
 
 export const getAllOrderRelatedData = () => async (dispatch) => {

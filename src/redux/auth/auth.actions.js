@@ -3,17 +3,16 @@ import axios from "axios"
 
 import { AUTH_SIGN_IN_ERROR, AUTH_SIGN_IN_LOADING, AUTH_SIGN_IN_SUCCESS, AUTH_SIGN_OUT, AUTH_SIGN_UP_ERROR, AUTH_SIGN_UP_LOADING, AUTH_SIGN_UP_SUCCESS, GET_ALL_USERS, GET_USER, UPDATE_PROFILE_ERROR, UPDATE_PROFILE_SUCCESS } from "./auth.types"
 
-const server_url = process.env.REACT_APP_SERVER_BASE_URL
-// const server_url = 'https://lazy-cyan-camel-sari.cyclic.app/'
-const localhost_url = 'http://localhost:8080'
+
+const server_url = process.env.REACT_APP_BASE_URL
+const server_url2 = process.env.REACT_APP_BASE_URL2
 
 
 const baseUrl = server_url
-const authBaseRoute = process.env.REACT_APP_USER_AUTH_URL
 
 export const runServer = () => async (dispatch) => {
     try {
-        await axios.get(baseUrl)
+        await axios.get(server_url2)
         console.log('server is runnng');
     } catch (error) {
         console.log('Server error', error);
@@ -24,7 +23,7 @@ export const runServer = () => async (dispatch) => {
 export const LoginApi = (creds) => async (dispatch) => {
     dispatch({ type: AUTH_SIGN_IN_LOADING })
     try {
-        let res = await axios.post(`${baseUrl}${authBaseRoute}/login`, creds)
+        let res = await axios.post(`${baseUrl}/user/auth/login`, creds)
         dispatch({
             type: AUTH_SIGN_IN_SUCCESS,
             payload: res.data
@@ -38,7 +37,7 @@ export const LoginApi = (creds) => async (dispatch) => {
 export const SignupApi = (creds) => async (dispatch) => {
     dispatch({ type: AUTH_SIGN_UP_LOADING })
     try {
-        let res = await axios.post(`${baseUrl}${authBaseRoute}/register`, creds)
+        let res = await axios.post(`${baseUrl}/user/auth/register`, creds)
         dispatch({
             type: AUTH_SIGN_UP_SUCCESS,
             payload: res.data
@@ -56,7 +55,7 @@ export const LogOut = () => async (dispatch) => {
 
 export const getUser = () => async (dispatch) => {
     try {
-        let res = await axios.get(`${baseUrl}${authBaseRoute}/getuser`, {
+        let res = await axios.get(`${baseUrl}/user/auth/getuser`, {
             headers: {
                 token: localStorage.getItem('checkmycalorieToken')
             }
@@ -80,7 +79,7 @@ export const getAllUsers = (page) => async (dispatch) => {
 
 export const updateProfile = (body) => async (dispatch) => {
     try {
-        let res = await axios.patch(`${baseUrl}${authBaseRoute}/update-profile`, body, {
+        let res = await axios.patch(`${baseUrl}/user/auth/update-profile`, body, {
             headers: {
                 token: localStorage.getItem('checkmycalorieToken')
             }
@@ -94,7 +93,7 @@ export const updateProfile = (body) => async (dispatch) => {
 
 export const updateProfilePicture = (formData) => async (dispatch) => {
     try {
-        let res = await axios.post(`${baseUrl}/user/auth/update-avatar`, formData, {
+        let res = await axios.post(`${server_url2}/user/auth/update-avatar`, formData, {
             headers: {
                 token: localStorage.getItem('checkmycalorieToken')
             }

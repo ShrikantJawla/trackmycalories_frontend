@@ -2,9 +2,8 @@ import axios from 'axios';
 import { getUser } from '../auth/auth.actions';
 import { CATEGORY_WISE_PRODUCTS, GET_CATEGORIES_WITH_LENGTH_FOR_FILTER, GET_PRODUCTS_BY_QUERY, SINGLE_PRODUCT_DETAIL, SINGLE_PRODUCT_REVIEWS } from './shop.types';
 
-const baseLocalHostURL = process.env.REACT_APP_BASE_URL
-// const baseServerURL = process.env.REACT_APP_SERVER_BASE_URL
-const baseServerURL = 'https://lazy-cyan-camel-sari.cyclic.app/'
+
+const baseServerURL = process.env.REACT_APP_BASE_URL
 
 export const categoryWiseProductDisplay = () => async (dispatch) => {
     try {
