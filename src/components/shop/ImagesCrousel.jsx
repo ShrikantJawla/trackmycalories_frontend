@@ -4,12 +4,12 @@ import { useEffect } from 'react'
 import { AiOutlineRight, AiOutlineLeft } from 'react-icons/ai'
 
 let images = [
-  'https://raw.githubusercontent.com/ShrikantJawla/trackmycalories/main/client/ImagesForCrousel/GNC-Desktop-Homepage-Banner-3800x800-AMP-1.webp',
-  'https://raw.githubusercontent.com/ShrikantJawla/trackmycalories/main/client/ImagesForCrousel/Muscletech-homepage-banner-desktop-A.webp',
-  'https://raw.githubusercontent.com/ShrikantJawla/trackmycalories/main/client/ImagesForCrousel/Nutrabay-All-HomePage-Desktop-Banner-1600x337.webp',
-  'https://raw.githubusercontent.com/ShrikantJawla/trackmycalories/main/client/ImagesForCrousel/OptimumNutrition-DesktopBanner-WPI-1600x337.webp',
-  'https://raw.githubusercontent.com/ShrikantJawla/trackmycalories/main/client/ImagesForCrousel/Plant-Protein-Vegan-3800x800px-1-1600x337.webp',
-  'https://raw.githubusercontent.com/ShrikantJawla/trackmycalories/main/client/ImagesForCrousel/Swisse-DesktopBanner-Upto40off-1600x337.webp',
+  'https://raw.githubusercontent.com/ShrikantJawla/trackmycalories_frontend/main/ImagesForCrousel/GNC-Desktop-Homepage-Banner-3800x800-AMP-1.webp',
+  'https://raw.githubusercontent.com/ShrikantJawla/trackmycalories_frontend/main/ImagesForCrousel/Muscletech-homepage-banner-desktop-A.webp',
+  'https://raw.githubusercontent.com/ShrikantJawla/trackmycalories_frontend/main/ImagesForCrousel/Nutrabay-All-HomePage-Desktop-Banner-1600x337.webp',
+  'https://raw.githubusercontent.com/ShrikantJawla/trackmycalories_frontend/main/ImagesForCrousel/OptimumNutrition-DesktopBanner-WPI-1600x337.webp',
+  'https://raw.githubusercontent.com/ShrikantJawla/trackmycalories_frontend/main/ImagesForCrousel/Plant-Protein-Vegan-3800x800px-1-1600x337.webp',
+  'https://raw.githubusercontent.com/ShrikantJawla/trackmycalories_frontend/main/ImagesForCrousel/Swisse-DesktopBanner-Upto40off-1600x337.webp',
 ]
 let id
 const ImagesCrousel = () => {

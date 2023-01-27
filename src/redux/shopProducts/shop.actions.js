@@ -30,7 +30,7 @@ export const getSingleShopProductReviews = (id, q) => async (dispatch) => {
 
 export const getSingleShopProduct = (id) => async (dispatch) => {
     try {
-        const { data } = await axios.get(`${baseServerURL}/shop/products/${id}`)
+        const { data } = await axios.get(`${baseServerURL}/shop/products/product/${id}`)
         dispatch({ type: SINGLE_PRODUCT_DETAIL, payload: data })
     } catch (error) {
         console.log(error);
