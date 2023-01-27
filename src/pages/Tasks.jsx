@@ -33,7 +33,7 @@ const Tasks = () => {
       </HStack>
       <Stack direction={{ base: 'column', lg: 'row' }} justify="space-evenly">
         <StyledVStack
-          w={{ lg: '31%' }}
+          w={{ lg: '33%' }}
           h={{ lg: '90vh' }}
           bg="var(--glassBackground)"
           px="6px"
@@ -47,7 +47,7 @@ const Tasks = () => {
               .map((ele) => <Task key={ele._id} {...ele} />)}
         </StyledVStack>
         <StyledVStack
-          w={{ lg: '31%' }}
+          w={{ lg: '33%' }}
           h={{ lg: '90vh' }}
           px="6px"
           py="10px"
@@ -61,7 +61,7 @@ const Tasks = () => {
               .map((ele) => <Task key={ele._id} {...ele} />)}
         </StyledVStack>
         <StyledVStack
-          w={{ lg: '31%' }}
+          w={{ lg: '33%' }}
           h={{ lg: '90vh' }}
           px="6px"
           py="10px"

@@ -24,12 +24,12 @@ const FeedsUsersSuggestionsList = () => {
   const toggleVisiblity = () => setIsVisible((p) => (p = !p))
 
   return (
-    <VStack w="90%" spacing={5} pb="10px">
-      <HStack w="full" justify="space-between" p>
+    <VStack w="90%" spacing={5} pb="10px" >
+      <HStack w="full" justify="space-between" >
         <Text fontWeight="bold">Suggestions for you</Text>
         <UsersListsDialog
           title="All Suggestions"
-          type='suggestions'
+          type="suggestions"
           users={allUsers}
           isVisible={isVisible}
           toggleVisiblity={toggleVisiblity}

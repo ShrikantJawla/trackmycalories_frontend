@@ -73,6 +73,7 @@ const SinglePost = ({
   return (
     <>
       <VStack
+        boxShadow={'lg'}
         width={'540px'}
         h={'fit-content'}
         bg={'var(--cardBackground)'}

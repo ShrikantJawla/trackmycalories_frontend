@@ -7,7 +7,7 @@ const baseServerURL = process.env.REACT_APP_BASE_URL
 
 export const categoryWiseProductDisplay = () => async (dispatch) => {
     try {
-        const { data } = await axios.get(`${baseServerURL}${process.env.REACT_APP_CATEGORY_WISE_PRODUCT_DISPLAY}`);
+        const { data } = await axios.get(`${baseServerURL}/shop/products/categorywiseProducts`);
         dispatch({ type: CATEGORY_WISE_PRODUCTS, payload: data });
     } catch (error) {
         console.log(error)
@@ -17,7 +17,7 @@ export const categoryWiseProductDisplay = () => async (dispatch) => {
 
 export const getSingleShopProductReviews = (id, q) => async (dispatch) => {
     try {
-        const { data } = await axios.get(`${baseServerURL}${process.env.REACT_APP_SINGLE_PRODUCT_REVIEWS_BY_ID}/${id}?page=${q}`, {
+        const { data } = await axios.get(`${baseServerURL}/shop/product/reviews/${id}?page=${q}`, {
             headers: {
                 token: localStorage.getItem('checkmycalorieToken')
             }
@@ -30,7 +30,7 @@ export const getSingleShopProductReviews = (id, q) => async (dispatch) => {
 
 export const getSingleShopProduct = (id) => async (dispatch) => {
     try {
-        const { data } = await axios.get(`${baseServerURL}${process.env.REACT_APP_SINGLE_PRODUCT_BY_ID}/${id}`)
+        const { data } = await axios.get(`${baseServerURL}/shop/products/${id}`)
         dispatch({ type: SINGLE_PRODUCT_DETAIL, payload: data })
     } catch (error) {
         console.log(error);
